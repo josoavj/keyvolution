@@ -1,5 +1,8 @@
 # KEYVOLUTION
 
+<p>
+  <img align="center" height=120 src="https://github.com/josoavj/keyvolution/blob/main/assets/Logo%20Keyvolution.png" alt="KEYVOLUTION's logo"/>
+</p>
 
 ## About
 
