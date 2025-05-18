@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "partitions",
+  "info": {
+    "singularName": "partition",
+    "pluralName": "partitions",
+    "displayName": "Partition",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "PartitionFile": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "progression": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::progression.progression"
+    }
+  }
+}

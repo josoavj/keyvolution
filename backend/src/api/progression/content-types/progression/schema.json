@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "progressions",
+  "info": {
+    "singularName": "progression",
+    "pluralName": "progressions",
+    "displayName": "Progression",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Score": {
+      "type": "integer"
+    },
+    "Date": {
+      "type": "datetime"
+    }
+  }
+}

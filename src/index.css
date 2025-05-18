@@ -1,6 +1,6 @@
 /* 1. Landing Page
 2. Home Page
-3. Learning Page
+3. Workspace Page
 4. Composants réutilisables */
 
 
@@ -109,9 +109,9 @@ body {
   background-color: #04051E;
 }
 
-/* .container {
+.container {
   padding: 2rem;
-} */
+}
 
 .top-section {
   display: flex;
@@ -122,8 +122,10 @@ body {
 }
 
 .left {
+  position: relative;
   width: 50%;
   margin-right: 20px ;
+  top: 3rem;
 }
 
 .left h1 {
@@ -166,9 +168,9 @@ body {
 
 .right .logo {
   height: auto;
-  position: fixed;
-  right: 28rem;
-  top: 5rem;
+  position: relative;
+  right: 20rem;
+  top: 2rem;
 }
 
 .toggle-menu {
@@ -189,7 +191,7 @@ body {
   color: white;
   position: absolute;
   top: 2rem;
-  right: 2rem;
+  right: 5rem;
   width: 300px;
   background: linear-gradient(to right, rgba(39, 140, 126, 0.2), rgba(23, 26, 155, 0.2));
   padding: 1rem;
@@ -213,8 +215,20 @@ body {
 .play-btn,.add-btn {
   width: 30px;
   height: 30px;
+  display: flex;
+  justify-content: center;
   background: transparent !important;
 }
+
+.play-cover {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: -10px;
+    margin-right: 5px;
+}
+
 
 .progress-bar {
   width: 100%;
@@ -229,10 +243,13 @@ body {
   width: 60%;
   border-radius: 3px;
 }
+
 .songs-section {
   color: white;
   font-family: "Noto Sans", sans-serif;
   font-weight: bold;
+  position: relative;
+  top: 7rem;
 }
 
 .songs-section .song-grid {
@@ -264,29 +281,202 @@ body {
   display: flex;
   gap: 2rem;
 }
+
 .bottom-menu button{
   background: transparent;
 }
-/* .titre-container {
-  width: 565px;
+
+/* 3. Workspace Page */
+
+#workspace-page{
+  background-color: #04051E;
   display: flex;
-  flex-direction: column; /* Force les éléments à s'empiler */
-  /* align-items: center;
-  justify-content: center;
-  background-repeat: no-repeat;
-  background-position: center;
-  top: 5%;
+  flex-direction: column;
+}
+        
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    height: 80px;
 }
 
-
-.gros-titre {
-  color: white;
-  font-size: 30px;
-  font-family: "Audiowide", sans-serif;
+.logo {
+    display: flex;
+    align-items: center;
 }
 
-.sous-titre {
-  color: white;
-  font-family: "Noto Sans", sans-serif;
-  font-weight: lighter;
-} */ 
+.logo img {
+    width: 40px;
+    height: 40px;
+}
+
+.title {
+    position: relative;
+    right: 7rem;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    flex-grow: 1;
+    font-family: "Audiowide", sans-serif;
+} 
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    right: 7rem;
+}
+
+.music-player {
+    width: 80%;
+    max-width: 800px;
+    background-color: rgba(9, 25, 58, 0.8);
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.song-info {
+    text-align: center;
+    padding: 10px;
+}
+
+.music-sheet {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    position: relative;
+    height: 150px;
+    overflow: hidden;
+}
+
+.sheet-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.sheet-content img {
+    height: 100%;
+}
+
+.piano-container {
+    margin-top: 10px;
+    height: 200px;
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.piano-keys {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.white-key {
+    flex-grow: 1;
+    background-color: white;
+    border: 1px solid #ccc;
+    height: 100%;
+    position: relative;
+}
+
+.white-key.active {
+    background-color: rgba(173, 216, 230, 0.7);
+}
+
+.black-key {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    background-color: #333;
+    top: 0;
+    right: -30%;
+    z-index: 2;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 50px;
+    width: 60%;
+    margin: 20px auto;
+}
+
+.control-button {
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control-button img {
+    width: 30px;
+    height: 30px;
+}
+/*.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.music-player {
+    width: 80%;
+    max-width: 800px;
+    background-color: rgba(9, 25, 58, 0.8);
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.progress-bar {
+    background-color: rgba(255, 255, 255, 0.3);
+    height: 5px;
+    margin: 10px 0;
+    border-radius: 5px;
+    position: relative;
+}
+
+.progress-fill {
+    position: absolute;
+    height: 100%;
+    width: 30%;
+    background-color: #3a91ff;
+    border-radius: 5px;
+}
+
+.progress-handle {
+    width: 15px;
+    height: 15px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    left: 30%;
+    cursor: pointer;
+} */

@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "materiels",
+  "info": {
+    "singularName": "materiel",
+    "pluralName": "materiels",
+    "displayName": "Materiel"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "AdresseMac": {
+      "type": "string"
+    },
+    "DateConnexion": {
+      "type": "date"
+    },
+    "utilisateurs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::utilisateur.utilisateur",
+      "mappedBy": "materiels"
+    }
+  }
+}
