@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeyVolution - HomePage</title>
+    <link rel="stylesheet" href="index.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body id="home-page">
+  <div class="container">
+    <header class="top-section">
+      <div class="left">
+        <h1>Lorem ipsum dolor sit amet,<br> lorem ipsum dolor</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <button class="learn-btn" onclick="learn()">Apprendre</button>
+        <div class="slider-dots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+      <div class="right">
+        <img src="../../Design/logo.png" alt="Logo" class="logo" width="252.73px" height="226px"/>
+      </div>
+      <div class="toggle-menu">
+        <div class="burger"></div>
+        <div class="switch"></div>
+      </div>
+    </header>
+
+    <section class="playlist-section">
+      <div class="playlist-header">
+        <h3>Play Lists</h3>
+        <button class="add-btn" onclick="addSong()"><img src="../../Design/icons/AddSong.png" alt="add" width="30px" height="30px"/></button>
+      </div>
+      <ul class="playlist">
+        <li>
+          <span>01</span>
+          <div>
+            <p>Twinkle, twinkle little star</p>
+            <small>Progrès</small>
+            <div class="progress-bar"><div class="progress"></div></div>
+          </div>
+          <button class="play-btn"><img src="../../Design/icons/play-btn.png" alt="play" width="30px" height="30px"/></button>
+        </li>
+                <li>
+          <span>01</span>
+          <div>
+            <p>Twinkle, twinkle little star</p>
+            <small>Progrès</small>
+            <div class="progress-bar"><div class="progress"></div></div>
+          </div>
+          <button class="play-btn"><img src="../../Design/icons/play-btn.png" alt="play" width="30px" height="30px"/></button>
+        </li>
+        <!-- Répète li autant que nécessaire -->
+      </ul>
+    </section>
+
+    <section class="songs-section">
+      <h3>Top played song</h3>
+      <div class="song-grid">
+        <div class="song-card">
+          <img src="../../Design/Twinkle.png" alt="Twinkle" width="157px" height="157px"/>
+          <p>Twinkle, twinkle, little star</p>
+        </div>
+        <div class="song-card">
+          <img src="../../Design/Twinkle.png" alt="Twinkle" width="157px" height="157px"/>
+          <p>Twinkle, twinkle, little star</p>
+        </div>
+        <div class="song-card">
+          <img src="../../Design/Twinkle.png" alt="Twinkle" width="157px" height="157px"/>
+          <p>Twinkle, twinkle, little star</p>
+        </div>
+        <div class="song-card">
+          <img src="../../Design/Twinkle.png" alt="Twinkle" width="157px" height="157px"/>
+          <p>Twinkle, twinkle, little star</p>
+        </div>
+        <!-- Répète autant de fois que nécessaire -->
+      </div>
+    </section>
+
+    <footer class="bottom-menu">
+      <button><img src="../../Design/icons/piano.png" alt="piano"/></button>
+      <button onclick="goToPage('index')"><img src="../../Design/icons/home.png" alt="home"/></button>
+      <button><img src="../../Design/icons/library.png" alt="books"/></button>
+    </footer>
+  </div>
+
+      
+    <script>
+        function goToPage(page) {
+            window.electron.navigateTo(page);
+        }
+    </script>
+
+    <script>
+        function learn() {
+          alert("Commençons !");
+        }
+    </script>
+
+    <script>
+        function addSong() {
+          alert("Glisser/Déposer la chanson à décomposer");
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>KeyVolution Piano learning app</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body id="landing-page">
+    <div id="ispm">
+    
+    </div>
+    <div class="slogan-container">
+        <p class="slogan">
+          Transformez n'importe quelle chanson en <strong style="color: #F73DEE;">partitions interactives</strong>
+        </p>
+    </div>
+    
+    <div id="logo">
+
+    </div>
+    <div class="btn-container">
+      <button class="btn" onclick="goToPage('home')">Commencer</button>
+    </div>
+
+    <script>
+        function goToPage(page) {
+            window.electron.navigateTo(page);
+        }
+    </script>
+  </body>
+  <script src="./renderer.js"></script>
+</html>
