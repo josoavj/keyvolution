@@ -8,5 +8,5 @@
 
 By scalling the music and transform them into simple partitions, easy to learn for anyone. Besides, it can be connected to a real piano or any virtual piano device and track the user's tales in realtime, see if they make mistakes, their paces, and so on
 
-The AI modal is strongly inspired by Google Magenta
+The AI model is strongly inspired by Google Magenta
   
