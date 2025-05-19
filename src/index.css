@@ -187,11 +187,27 @@ body {
   align-items: center !important;
 }
 
+.playlist-section::-webkit-scrollbar {
+  width: 6px;
+}
+
+.playlist-section::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.playlist-section::-webkit-scrollbar-thumb {
+  background-color: #197C97; /* couleur principale ou secondaire */
+  border-radius: 10px;
+}
+
 .playlist-section {
+  max-height: 400px; /* ou la hauteur que tu veux */
+  overflow-y: auto;
   color: white;
   position: absolute;
   top: 2rem;
-  right: 5rem;
+  right: 2rem;
   width: 300px;
   background: linear-gradient(to right, rgba(39, 140, 126, 0.2), rgba(23, 26, 155, 0.2));
   padding: 1rem;
@@ -200,11 +216,58 @@ body {
   font-weight: lighter;
 }
 
+.playlist{
+  padding: 1rem;
+}
 .playlist li {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
+  gap: 10px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.05); /* effet doux */
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.playlist li:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.playlist li img.play-cover {
+  width: 45px;
+  height: 45px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.playlist li span {
+  font-weight: bold;
+  color: #ccc;
+  width: 25px;
+  text-align: center;
+}
+
+.playlist li div {
+  flex: 1;
+}
+
+.playlist li p {
+  margin: 0;
+  font-size: 14px;
+  color: white;
+}
+
+.playlist li small {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.progress-bar {
+  background: #333;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 4px;
+  margin-top: 4px;
 }
 
 .song-card p{

@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<body id="home-page">
+<body id="home-page" onload="fetchSongs()">
   <div class="container">
     <header class="top-section">
       <div class="left">
@@ -38,8 +38,8 @@
         <h3>Play Lists</h3>
         <button class="add-btn" onclick="addSong()"><img src="../../Design/icons/AddSong.png" alt="add" width="30px" height="30px"/></button>
       </div>
-      <ul class="playlist">
-        <li>
+      <ul class="playlist" id="playlist-container">
+        <!-- <li>
           <img src="../../Design/Ellipse.png" alt="cover" class="play-cover">
           <span >01</span>
           <div>
@@ -48,41 +48,14 @@
             <div class="progress-bar"><div class="progress"></div></div>
           </div>
           <button class="play-btn" onclick="TestStrapi()"><img src="../../Design/icons/play-btn.png" alt="play" width="30px" height="30px"/></button>
-        </li>
-        <li>
-          <img src="../../Design/Ellipse.png" alt="cover" class="play-cover">
-          <span>01</span>
-          <div>
-            <p>Twinkle, twinkle little star</p>
-            <small>Progrès</small>
-            <div class="progress-bar"><div class="progress"></div></div>
-          </div>
-          <button class="play-btn"><img src="../../Design/icons/play-btn.png" alt="play" width="30px" height="30px"/></button>
-        </li>
+        </li> -->
         <!-- Répète li autant que nécessaire -->
       </ul>
     </section>
 
     <section class="songs-section">
       <h3>Top played song</h3>
-      <div class="song-grid">
-        <div class="song-card">
-          <img src="../../Design/Twinkle.png" alt="Twinkle" width="157px" height="157px"/>
-          <p>Twinkle, twinkle, little star</p>
-        </div>
-        <div class="song-card">
-          <img src="../../Design/Twinkle.png" alt="Twinkle" width="157px" height="157px"/>
-          <p>Twinkle, twinkle, little star</p>
-        </div>
-        <div class="song-card">
-          <img src="../../Design/Twinkle.png" alt="Twinkle" width="157px" height="157px"/>
-          <p>Twinkle, twinkle, little star</p>
-        </div>
-        <div class="song-card">
-          <img src="../../Design/Twinkle.png" alt="Twinkle" width="157px" height="157px"/>
-          <p>Twinkle, twinkle, little star</p>
-        </div>
-        <!-- Répète autant de fois que nécessaire -->
+      <div class="song-grid" id="song-grid">
       </div>
     </section>
 
@@ -107,19 +80,93 @@
     </script>
 
     <script>
-      function TestStrapi(){
-        fetch('http://localhost:1337/api/musiques')
-        .then(res => res.json())
-        .then(data => {
-          console.log(data)
-          const title = data.data[0]?.Title || "Pas de titre trouvé";
-          alert("Titre de la première musique : " + title);
-        })
-        .catch(err => {
-          console.error("Erreur :", err);
-          alert("Erreur de récupération des données");
-        });
+      async function fetchPlaylist() {
+        try {
+          const res = await fetch('http://localhost:1337/api/musiques?populate=*');
+          const data = await res.json();
+
+          let songs = data.data;
+
+          // 🔀 Mélanger les musiques (shuffle)
+          songs = songs.sort(() => Math.random() - 0.5);
+
+          // 📦 Conteneur de la playlist
+          const container = document.getElementById("playlist-container");
+          container.innerHTML = "";
+
+          // 🔢 Nombre de musiques à afficher (optionnel car scrollable)
+          const limit = songs.length; // ou limiter à 10 si tu veux
+          for (let i = 0; i < limit; i++) {
+            const song = songs[i];
+            const title = song.Title || "Titre inconnu";
+            const artist = song.Artist || "Artiste inconnu";
+
+            const coverObj = song.Cover?.[0];
+            const coverUrl = coverObj?.formats?.thumbnail?.url || coverObj?.url;
+            const fullCoverUrl = coverUrl ? `http://localhost:1337${coverUrl}` : "../../Design/Ellipse.png";
+
+            const li = document.createElement("li");
+            li.innerHTML = `
+              <img src="${fullCoverUrl}" alt="cover" class="play-cover" />
+              <span>${(i + 1).toString().padStart(2, '0')}</span>
+              <div>
+                <p>${title}</p>
+                <small>${artist}</small>
+                <div class="progress-bar"><div class="progress"></div></div>
+              </div>
+              <button class="play-btn" onclick="playSong(${i})">
+                <img src="../../Design/icons/play-btn.png" alt="play" width="30px" height="30px"/>
+              </button>
+            `;
+            container.appendChild(li);
+          }
+        } catch (err) {
+          console.error("Erreur lors de la récupération :", err);
+        }
       }
+
+      // Appeler la fonction au chargement
+      document.addEventListener("DOMContentLoaded", fetchPlaylist);
+    </script>
+
+
+    <script>
+      async function fetchSongs() {
+        try {
+          const res = await fetch('http://localhost:1337/api/musiques?populate=*');
+          const data = await res.json();
+
+          const songs = Array.from(data.data); // force la conversion en vrai tableau
+          console.log(songs)
+          console.log(songs.length)
+          const container = document.getElementById('song-grid');
+          container.innerHTML = "";
+          
+          for (var i = 0; i < songs.length; i++) {
+            console.log(songs[i])
+            const title = songs[i].Title || "Titre inconnu";
+            const artist = songs[i].Artist || "Artiste inconnu";
+
+            const coverObj = songs[i].Cover?.[0];
+            const coverUrl = coverObj?.formats?.thumbnail?.url || coverObj?.url;
+            const fullCoverUrl = coverUrl ? `http://localhost:1337${coverUrl}` : "fallback.png";
+
+            const card = document.createElement('div');
+            card.className = "song-card";
+            card.innerHTML = `
+              <img src="${fullCoverUrl}" alt="${title}" width="157px" height="157px" />
+              <p><strong>${title}</strong><br><em>${artist}</em></p>
+            `;
+
+            container.appendChild(card);
+          };
+        } catch (err) {
+          console.error("Erreur lors de la récupération :", err);
+          alert("Erreur de récupération des musiques.");
+        }
+      }
+
+
     </script>
 </body>
 
