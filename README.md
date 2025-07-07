@@ -8,13 +8,16 @@
 
 - **Description:** A piano learning software, intended for those who are beginners in this field and also those who want to improve their skills.
 - **Language:** Python 3 (AI), JavaScript (ElectronJs framework)
-- **Database:** MongoDB
+- **Database:** Strapi headless CMS
 
 ### 📂 Structuration du projet
 
 ```
-src/
-├── src/renderer/           # Renderer Process: Front-end
+keyvolution/                # Dossier principal
+├── Design                  # Design et prototype de l'application
+├── backend/                # Depôt du backend de l'application
+├── src/                    # Dépôt des codes
+    ├── src/renderer/       # Renderer Process: Front-end
     ├── index.html          # Page principale de l'UI
     ├── style.css           # Feuille de style pour l'interface
     ├── app.js              # Gestion des évènements UI
