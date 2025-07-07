@@ -480,7 +480,7 @@ export interface ApiMusiqueMusique extends Struct.CollectionTypeSchema {
   };
   attributes: {
     Artist: Schema.Attribute.String;
-    Cover: Schema.Attribute.Media<'images' | 'files', true>;
+    Cover: Schema.Attribute.Media<'images' | 'files'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -490,7 +490,7 @@ export interface ApiMusiqueMusique extends Struct.CollectionTypeSchema {
       'api::musique.musique'
     > &
       Schema.Attribute.Private;
-    MusicFile: Schema.Attribute.Media<'files' | 'audios', true>;
+    MusicFile: Schema.Attribute.Media<'files' | 'audios'>;
     partition: Schema.Attribute.Relation<
       'oneToOne',
       'api::partition.partition'

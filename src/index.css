@@ -167,17 +167,71 @@ body {
 }
 
 .right .logo {
-  height: auto;
-  position: relative;
-  right: 20rem;
-  top: 2rem;
+    height: auto;
+    /* position: relative; */
+    margin-right: 12rem;
+    margin-top: 2rem;
 }
 
 .toggle-menu {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  /* styliser plus tard */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.searchbar {
+  display: flex;
+  align-items: center;
+  background-color: #1e2a3a;
+  border-radius: 20px;
+  padding: 0.3rem 0.8rem;
+}
+
+.searchbar input {
+  background: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  width: 100px;
+}
+
+.searchbar .search-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.burger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 20px;
+  width: 24px;
+  cursor: pointer;
+}
+
+.burger span {
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+}
+
+.profile img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ffffff33;
+}
+
+.toggle-menu-2 {
+    top: 1rem;
+    right: 0.5rem;
+    background-color: white;
+    width: 110px;
+    height: 50px;
+    border-radius: 25px;
 }
 
 .playlist-header {
@@ -206,7 +260,6 @@ body {
   overflow-y: auto;
   color: white;
   position: absolute;
-  top: 2rem;
   right: 2rem;
   width: 300px;
   background: linear-gradient(to right, rgba(39, 140, 126, 0.2), rgba(23, 26, 155, 0.2));
@@ -308,21 +361,42 @@ body {
 }
 
 .songs-section {
+  max-width: 840px;
+  overflow-y: auto;
   color: white;
   font-family: "Noto Sans", sans-serif;
   font-weight: bold;
   position: relative;
   top: 7rem;
+  bottom: 2rem;
 }
 
 .songs-section .song-grid {
   display: flex;
   gap: 1rem;
-  margin-top: 2rem;
+  margin-top: 4rem;
   font-family: "Noto Sans", sans-serif;
   font-weight: lighter;
   text-align: center;
-  width: 157px;
+}
+
+.songs-section::-webkit-scrollbar {
+  width: 6px;
+  height: 3px;
+}
+
+.songs-section::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.songs-section::-webkit-scrollbar-thumb {
+  background-color: #197C97; /* couleur principale ou secondaire */
+  border-radius: 10px;
+}
+
+.song-card:hover {
+  background-color: rgba(9, 25, 58, 0.3);
 }
 
 .song-card img {
@@ -332,6 +406,11 @@ body {
   object-fit: cover;
   margin-bottom: -15px;
 }
+
+.songs-section h3 {
+  position: fixed !important;
+}
+
 
 .bottom-menu {
   position: fixed;
@@ -347,6 +426,77 @@ body {
 
 .bottom-menu button{
   background: transparent;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background-image: url(../../Design/fondModla.png);
+  padding: 2rem;
+  border-radius: 30px;
+  max-width: 409px;
+  height: 449px;
+  width: 90%;
+  color: white;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.modal-content label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 6px;
+  border: 1px solid #80D4FF;
+  background-color: transparent;
+  color: white;
+}
+
+.modal-content button {
+  margin-top: 1.5rem;
+  padding: 10px;
+  width: 58%;
+  background-color: #1175B3;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+  background-color: #0d2e54;
+}
+
+.modal-content .actions {
+  margin-top: 1rem;
+  gap: 1rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 /* 3. Workspace Page */
@@ -405,6 +555,8 @@ header {
     overflow: hidden;
     padding: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    position: relative;
+    right: 2rem;
 }
 
 .song-info {

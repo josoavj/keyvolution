@@ -19,7 +19,7 @@
     },
     "Cover": {
       "type": "media",
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "allowedTypes": [
         "images",
@@ -28,7 +28,7 @@
     },
     "MusicFile": {
       "type": "media",
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "allowedTypes": [
         "files",
