@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeyVolution - Workspace</title>
+    <link rel="stylesheet" href="index.css" />
+    <!-- <link rel="stylesheet" href="responsive.css"/> -->
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body id="workspace-page">
+    <header>
+        <div class="logo">
+            <img src="../../Design/logo2.png" alt="Logo de l'application musicale">
+        </div>
+        <div class="title">Lorem ipsum dolor sit amet, lorem ipsum dolor</div>
+    </header>
+
+    <div class="toggle-menu">
+      <div class="burger"></div>
+      <div class="switch"></div>
+    </div>
+    
+    <section class="playlist-section">
+      <div class="playlist-header">
+        <h3>Play Lists</h3>
+        <button class="add-btn" onclick="addSong()"><img src="../../Design/icons/AddSong.png" alt="add" width="30px" height="30px"/></button>
+      </div>
+      <ul class="playlist" id="playlist-container">
+      </ul>
+    </section>
+    <div class="main-content">
+        <div class="music-player">
+            <img src="../../Design/Learn.png" alt="Worskpace">
+        </div>
+        </div>
+        
+        <footer class="bottom-menu">
+        <button onclick="goToPage('workspace')"><img src="../../Design/icons/piano.png" alt="piano"/></button>
+        <button onclick="goToPage('home')"><img src="../../Design/icons/home.png" alt="home"/></button>
+        <button><img src="../../Design/icons/library.png" alt="books"/></button>
+        </footer>
+    </div>
+
+      
+    <script>
+        function goToPage(page) {
+            window.electron.navigateTo(page);
+        }
+    </script>
+
+
+    <script>
+        function addSong() {
+          alert("Glisser/Déposer la chanson à décomposer");
+        }
+    </script>
+
+    <script>
+      function TestStrapi(){
+        fetch('http://localhost:1337/api/musiques')
+        .then(res => res.json())
+        .then(data => {
+          console.log(data)
+          const title = data.data[0]?.Title || "Pas de titre trouvé";
+          alert("Titre de la première musique : " + title);
+        })
+        .catch(err => {
+          console.error("Erreur :", err);
+          alert("Erreur de récupération des données");
+        });
+      }
+    </script>
+
+        <script>
+      async function fetchPlaylist() {
+        try {
+          const res = await fetch('http://localhost:1337/api/musiques?populate=*');
+          const data = await res.json();
+
+          let songs = data.data;
+
+          // 🔀 Mélanger les musiques (shuffle)
+          songs = songs.sort(() => Math.random() - 0.5);
+
+          // 📦 Conteneur de la playlist
+          const container = document.getElementById("playlist-container");
+          container.innerHTML = "";
+
+          // 🔢 Nombre de musiques à afficher (optionnel car scrollable)
+          const limit = songs.length; // ou limiter à 10 si tu veux
+          for (let i = 0; i < limit; i++) {
+            const song = songs[i];
+            const title = song.Title || "Titre inconnu";
+            const artist = song.Artist || "Artiste inconnu";
+
+            const coverObj = song.Cover;
+            const coverUrl = coverObj?.formats?.thumbnail?.url || coverObj?.url;
+            const fullCoverUrl = coverUrl ? `http://localhost:1337${coverUrl}` : "../../Design/Ellipse.png";
+
+            const li = document.createElement("li");
+            li.innerHTML = `
+              <img src="${fullCoverUrl}" alt="cover" class="play-cover" />
+              <span>${(i + 1).toString().padStart(2, '0')}</span>
+              <div>
+                <p>${title}</p>
+                <small>${artist}</small>
+                <div class="progress-bar"><div class="progress"></div></div>
+              </div>
+              <button class="play-btn" onclick="playSong(${i})">
+                <img src="../../Design/icons/play-btn.png" alt="play" width="30px" height="30px"/>
+              </button>
+            `;
+            container.appendChild(li);
+          }
+        } catch (err) {
+          console.error("Erreur lors de la récupération :", err);
+        }
+      }
+
+      // Appeler la fonction au chargement
+      document.addEventListener("DOMContentLoaded", fetchPlaylist);
+    </script>
+</body>
+
+</html>
