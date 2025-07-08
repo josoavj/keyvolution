@@ -46,5 +46,6 @@ The AI model is strongly inspired by Google Magenta
 
 
 ### 📃 Licence
+
 Ce projet est libre de droits et peut être utilisé pour des projets personnels et commerciaux.
 
