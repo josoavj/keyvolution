@@ -1,0 +1,278 @@
+/* KeyVolution - Styles responsifs complémentaires */
+/* À inclure après votre CSS principal */
+
+/* Variables globales pour la cohérence */
+:root {
+  --primary-color: #1175B3;
+  --secondary-color: #e070f0;
+  --dark-bg: #04051E;
+  --gradient-bg: linear-gradient(to right, rgba(39, 140, 126, 0.2), rgba(23, 26, 155, 0.2));
+  --menu-gradient: linear-gradient(to right, rgb(130, 81, 139, 0.2), rgb(23, 26, 155, 0.2));
+}
+
+/* Règles responsives générales */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+/* Media queries pour les différents appareils */
+
+/* 1. Pour les appareils de petite taille (smartphones) */
+@media screen and (max-width: 576px) {
+  /* Landing Page */
+  #landing-page .slogan {
+    font-size: 20px;
+    width: 90%;
+  }
+  
+  .slogan-container {
+    width: 95%;
+    margin-top: 30px;
+  }
+  
+  #logo {
+    width: 80%;
+    background-size: contain;
+  }
+  
+  .btn {
+    padding: 12px 30px;
+    font-size: 14px;
+  }
+  
+  /* Home Page */
+  .container {
+    padding: 1rem;
+  }
+  
+  .top-section {
+    flex-direction: column;
+  }
+  
+  .left {
+    width: 100%;
+    margin-right: 0;
+    text-align: center;
+    top: 1rem;
+  }
+  
+  .right .logo {
+    position: static;
+    margin: 2rem auto;
+    max-width: 80%;
+    height: auto;
+  }
+  
+  .playlist-section {
+    position: relative;
+    top: 2rem;
+    right: 0;
+    width: 90%;
+    margin: 0 auto;
+  }
+  
+  .songs-section {
+    top: 4rem;
+  }
+  
+  .song-grid {
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    justify-content: flex-start;
+    width: 100% !important;
+  }
+  
+  .song-card {
+    min-width: 120px;
+  }
+  
+  .song-card img {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .bottom-menu {
+    padding: 0.5rem 1.5rem;
+    width: 80%;
+    justify-content: space-around;
+    gap: 1rem;
+  }
+  
+  /* Workspace */
+  #workspace-page header {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+  }
+  
+  .title {
+    position: static;
+    margin: 1rem 0;
+    font-size: 18px;
+  }
+  
+  .main-content {
+    right: 0;
+    padding: 10px;
+  }
+  
+  .music-player {
+    width: 95%;
+  }
+}
+
+/* 2. Pour les tablettes */
+@media screen and (min-width: 577px) and (max-width: 992px) {
+  /* Landing Page */
+  .slogan-container {
+    width: 80%;
+  }
+  
+  #logo {
+    width: 70%;
+    background-size: contain;
+  }
+  
+  /* Home Page */
+  .left {
+    width: 50%;
+  }
+  
+  .right .logo {
+    right: 5rem;
+  }
+  
+  .playlist-section {
+    width: 250px;
+  }
+  
+  .songs-section {
+    top: 5rem;
+  }
+  
+  .songs-section .song-grid {
+    flex-wrap: wrap;
+    width: auto !important;
+  }
+  
+  /* Workspace */
+  .title {
+    right: 3rem;
+    font-size: 20px;
+  }
+  
+  .main-content {
+    right: 3rem;
+  }
+}
+
+/* 3. Pour les grands écrans */
+@media screen and (min-width: 1200px) {
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+}
+
+/* Ajustements spécifiques pour les éléments clés */
+
+/* Flexbox pour le grid de chansons */
+.songs-section .song-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  width: 100% !important;
+  gap: 1rem;
+  padding-bottom: 10px;
+}
+
+/* Barre de défilement stylisée */
+.song-grid::-webkit-scrollbar {
+  height: 6px;
+}
+
+.song-grid::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.song-grid::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+/* Correction pour les cartes dans le grid */
+.song-card {
+  flex: 0 0 auto;
+  width: auto;
+  text-align: center;
+  margin-right: 1rem;
+}
+
+/* Menu du bas toujours visible et accessible */
+.bottom-menu {
+  z-index: 1000;
+  width: auto;
+  min-width: 200px;
+}
+
+.bottom-menu button {
+  border: none;
+  cursor: pointer;
+}
+
+.bottom-menu button:focus {
+  outline: none;
+}
+
+/* Rendre la playlist scrollable si nécessaire */
+.playlist {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-left: 0;
+  list-style-type: none;
+}
+
+/* Correction des boutons et interactions */
+button {
+  cursor: pointer;
+  border: none;
+}
+
+.play-btn, .add-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+/* Animation subtile au survol des boutons */
+.learn-btn:hover, .btn:hover, .bottom-menu button:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s ease;
+}
+
+/* État actif pour les éléments interactifs */
+.playlist li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+}
+
+/* Adaptation des hauteurs et espacements */
+@media screen and (max-height: 700px) {
+  .songs-section {
+    top: 4rem;
+  }
+  
+  .bottom-menu {
+    padding: 0.3rem 1.5rem;
+  }
+  
+  .music-sheet {
+    height: 120px;
+  }
+}
