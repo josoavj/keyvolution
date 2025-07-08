@@ -402,8 +402,8 @@ body {
 .song-card img {
   /* width: 100px;
   height: 100px; */
-  border-radius: 1rem;
-  object-fit: cover;
+  border-radius: 1rem !important;
+  object-fit: cover !important;
   margin-bottom: -15px;
 }
 

@@ -50,10 +50,17 @@
     <section class="playlist-section">
       <div class="playlist-header">
         <h3>Play Lists</h3>
-        <button class="add-btn" onclick="addSong()"><img src="../../Design/icons/AddSong.png" alt="add" width="30px" height="30px"/></button>
+        <button class="add-btn" id="add-btn"><img src="../../Design/icons/AddSong.png" alt="add" width="30px" height="30px"/></button>
       </div>
       <ul class="playlist" id="playlist-container">
       </ul>
+      <script type="module">
+        import {fetchPlaylist} from './api/songs.js'; 
+
+        document.addEventListener('DOMContentLoaded', () => {
+        fetchPlaylist();
+        });
+      </script>
     </section>
 
     <div id="songModal" class="modal hidden">
@@ -61,11 +68,30 @@
         <!-- Le formulaire JS s’insèrera ici -->
       </div>
     </div>
+    <script type="module">
+      import { addSong, cancelAdd, handleSongSubmit, logFormData } from './api/songs.js';
 
+      document.getElementById("add-btn").addEventListener("click", () => {
+        addSong();
+      });
+
+      // La fonction cancelAdd() est déjà reliée dans ton HTML via onClick dans le bouton du formulaire généré
+      // Si tu veux éviter inline onclick (plus propre), on peut aussi l’attacher dynamiquement :
+      // (On pourra l'améliorer si tu veux)
+
+    </script>
     <section class="songs-section">
       <h3>Top played song</h3>
       <div class="song-grid" id="song-grid">
       </div>
+      <script type="module">
+        import {fetchSongs} from './api/songs.js'; 
+
+        document.addEventListener('DOMContentLoaded', () => {
+        fetchSongs();
+        });
+      </script>
+
     </section>
 
     <footer class="bottom-menu">
@@ -82,134 +108,6 @@
     </script>
 
     <script>
-      function addSong() {
-      // Empêche d'ajouter plusieurs fois le formulaire
-      if (document.getElementById("song-form")) return;
-
-      const modal = document.getElementById("songModal");
-      const container = document.getElementById("modalFormContainer");
-
-      const form = document.createElement("form");
-      form.id = "song-form";
-      form.enctype = "multipart/form-data";
-
-      form.innerHTML = `
-        <h2 style="text-align: center;">Ajouter une chanson</h2>
-        <label>Titre : <input type="text" name="Title" required /></label>
-        <label>Artiste : <input type="text" name="Artist" required /></label>
-        <label>Image de couverture : <input type="file" name="Cover" accept="image/*" /></label>
-        <label>Fichier audio : <input type="file" name="MusicFile" accept="audio/*" /></label>
-        <div class="actions">
-          <button type="submit">Ajouter</button>
-          <button type="button" onclick="cancelAdd()">Annuler</button>
-        </div>
-      `;
-
-      form.addEventListener("submit", handleSongSubmit);
-      container.innerHTML = ""; // Réinitialiser
-      container.appendChild(form);
-      modal.classList.remove("hidden");
-    }
-
-    function cancelAdd() {
-      const modal = document.getElementById("songModal");
-      modal.classList.add("hidden");
-      const form = document.getElementById("song-form");
-      if (form) form.remove();
-    }
-
-    async function handleSongSubmit(e) {
-      e.preventDefault();
-      const form = e.target;
-
-      try {
-        // 🔥 APPROCHE 2 : Upload direct avec création d'entrée
-        const formData = new FormData();
-        
-        // Ajouter les fichiers
-        if (form.Cover.files[0]) {
-          formData.append('files', form.Cover.files[0]);
-        }
-        
-        if (form.MusicFile.files[0]) {
-          formData.append('files', form.MusicFile.files[0]);
-        }
-
-        // Ajouter les métadonnées pour créer l'entrée directement
-        formData.append('path', 'api::musique.musique');
-        formData.append('name', form.Title.value);
-        
-        // Données additionnelles
-        formData.append('data', JSON.stringify({
-          Title: form.Title.value,
-          Artist: form.Artist.value
-        }));
-
-        const response = await fetch("http://localhost:1337/api/upload", {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer 00fabc626ac81314e86ba358b3b742cdd819de4b71aed51c02e219c17715d4a39f808816a5bb6ff640d13bf040aeed7eba5c6c6010f3d86a28095181e7967452399e55eb8c50defcff5a740f05407ed1d7e5881eb76133a04006e44dff952a0e4a7a33f8a4832445d4b181a5feda876d3f50a7e85503a57f9e97a16f40042228`
-          },
-          body: formData
-        });
-
-        const result = await response.json();
-        console.log("Réponse:", result);
-
-        if (!response.ok) {
-          throw new Error(`Erreur ${response.status}: ${JSON.stringify(result)}`);
-        }
-
-        // Ensuite, créer l'entrée avec les IDs des fichiers uploadés
-        const fileIds = result.map(file => file.id);
-        
-        const entryData = {
-          data: {
-            Title: form.Title.value,
-            Artist: form.Artist.value,
-            Cover: fileIds[0], // Premier fichier
-            MusicFile: fileIds[1] // Deuxième fichier
-          }
-        };
-
-        const entryResponse = await fetch("http://localhost:1337/api/musiques", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer 00fabc626ac81314e86ba358b3b742cdd819de4b71aed51c02e219c17715d4a39f808816a5bb6ff640d13bf040aeed7eba5c6c6010f3d86a28095181e7967452399e55eb8c50defcff5a740f05407ed1d7e5881eb76133a04006e44dff952a0e4a7a33f8a4832445d4b181a5feda876d3f50a7e85503a57f9e97a16f40042228`
-          },
-          body: JSON.stringify(entryData)
-        });
-
-        const entryResult = await entryResponse.json();
-        
-        if (!entryResponse.ok) {
-          throw new Error(`Erreur entrée ${entryResponse.status}: ${JSON.stringify(entryResult)}`);
-        }
-
-        alert("Musique ajoutée avec succès!");
-        form.remove();
-        const modal = document.getElementById("songModal");
-        modal.classList.add("hidden");
-        fetchPlaylist();
-
-      } catch (err) {
-        console.error("Erreur de soumission :", err);
-        alert("Erreur lors de l'ajout : " + err.message);
-      }
-    }
-
-    // Fonction utilitaire pour déboguer les FormData
-    function logFormData(formData, name) {
-      console.log(`--- ${name} ---`);
-      for (let pair of formData.entries()) {
-        console.log(pair[0], pair[1] instanceof File ? `File: ${pair[1].name} (${pair[1].size} bytes)` : pair[1]);
-      }
-    }
-    </script>
-
-
-    <script>
       // Variables globales pour gérer l'audio
       let currentAudio = null;
       let currentSongIndex = -1;
@@ -217,29 +115,29 @@
 
       // Fonction pour jouer une musique
       async function playSong(index) {
-        try {
+      try {
 
           // NOUVELLE LOGIQUE : Si c'est la même chanson, on fait pause/play
           if (currentSongIndex === index && currentAudio) {
-            if (currentAudio.paused) {
+          if (currentAudio.paused) {
               currentAudio.play();
-            } else {
+          } else {
               currentAudio.pause();
-            }
-            return; // ⚠️ Important : on sort de la fonction ici
+          }
+          return; // ⚠️ Important : on sort de la fonction ici
           }
 
           // Arrêter l'audio précédent s'il existe
           if (currentAudio) {
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
+          currentAudio.pause();
+          currentAudio.currentTime = 0;
           }
 
           // Récupérer les données de la musique
           const song = songs[index];
           if (!song || !song.MusicFile) {
-            console.error("Fichier audio non trouvé");
-            return;
+          console.error("Fichier audio non trouvé");
+          return;
           }
 
           // Construire l'URL du fichier audio
@@ -251,143 +149,55 @@
           
           // Événements audio
           currentAudio.onloadstart = () => {
-            console.log("Chargement de la musique...");
+          console.log("Chargement de la musique...");
           };
           
           currentAudio.oncanplay = () => {
-            console.log("Prêt à jouer");
-            currentAudio.play();
+          console.log("Prêt à jouer");
+          currentAudio.play();
           };
           
           currentAudio.onplay = () => {
-            console.log("Lecture démarrée");
-            updatePlayButton(index, true);
+          console.log("Lecture démarrée");
+          updatePlayButton(index, true);
           };
           
           currentAudio.onpause = () => {
-            console.log("Lecture en pause");
-            updatePlayButton(index, false);
+          console.log("Lecture en pause");
+          updatePlayButton(index, false);
           };
           
           currentAudio.onended = () => {
-            console.log("Lecture terminée");
-            updatePlayButton(index, false);
+          console.log("Lecture terminée");
+          updatePlayButton(index, false);
           };
           
           currentAudio.onerror = (error) => {
-            console.error("Erreur de lecture:", error);
-            alert("Erreur lors de la lecture du fichier audio");
+          console.error("Erreur de lecture:", error);
+          alert("Erreur lors de la lecture du fichier audio");
           };
           
-        } catch (error) {
+      } catch (error) {
           console.error("Erreur dans playSong:", error);
-        }
+      }
       }
 
       // Fonction pour mettre à jour l'apparence du bouton play
       function updatePlayButton(index, isPlaying) {
-        const playButtons = document.querySelectorAll('.play-btn');
-        
-        // Réinitialiser tous les boutons
-        playButtons.forEach((btn, i) => {
+      const playButtons = document.querySelectorAll('.play-btn');
+
+      // Réinitialiser tous les boutons
+      playButtons.forEach((btn, i) => {
           const img = btn.querySelector('img');
           if (i === index && isPlaying) {
-            img.src = "../../Design/icons/play-btn2.png"; // Changez le chemin si nécessaire
-            img.alt = "pause";
+          img.src = "../../Design/icons/play-btn2.png"; // Changez le chemin si nécessaire
+          img.alt = "pause";
           } else {
-            img.src = "../../Design/icons/play-btn.png";
-            img.alt = "play";
+          img.src = "../../Design/icons/play-btn.png";
+          img.alt = "play";
           }
-        });
+      });
       }
-
-      // Modifier votre fonction fetchPlaylist pour stocker les musiques
-      async function fetchPlaylist() {
-        try {
-          const res = await fetch('http://localhost:1337/api/musiques?populate=*');
-          const data = await res.json();
-
-          songs = data.data; // 🔥 Stocker les musiques dans la variable globale
-
-          // 🔀 Mélanger les musiques (shuffle)
-          songs = songs.sort(() => Math.random() - 0.5);
-
-          // 📦 Conteneur de la playlist
-          const container = document.getElementById("playlist-container");
-          container.innerHTML = "";
-
-          // 🔢 Nombre de musiques à afficher (optionnel car scrollable)
-          const limit = songs.length;
-          for (let i = 0; i < limit; i++) {
-            const song = songs[i];
-            const title = song.Title || "Titre inconnu";
-            const artist = song.Artist || "Artiste inconnu";
-
-            const coverObj = song.Cover;
-            const coverUrl = coverObj?.formats?.thumbnail?.url || coverObj?.url;
-            const fullCoverUrl = coverUrl ? `http://localhost:1337${coverUrl}` : "../../Design/Ellipse.png";
-
-            const li = document.createElement("li");
-            li.innerHTML = `
-              <img src="${fullCoverUrl}" alt="cover" class="play-cover" />
-              <span>${(i + 1).toString().padStart(2, '0')}</span>
-              <div>
-                <p>${title}</p>
-                <small>${artist}</small>
-                <div class="progress-bar"><div class="progress"></div></div>
-              </div>
-              <button class="play-btn" onclick="playSong(${i})">
-                <img src="../../Design/icons/play-btn.png" alt="play" width="30px" height="30px"/>
-              </button>
-            `;
-            container.appendChild(li);
-          }
-        } catch (err) {
-          console.error("Erreur lors de la récupération :", err);
-        }
-      }
-
-      // Appeler la fonction au chargement
-      document.addEventListener("DOMContentLoaded", fetchPlaylist);
-    </script>
-
-
-    <script>
-      async function fetchSongs() {
-        try {
-          const res = await fetch('http://localhost:1337/api/musiques?populate=*');
-          const data = await res.json();
-
-          const songs = Array.from(data.data); // force la conversion en vrai tableau
-          console.log(songs)
-          console.log(songs.length)
-          const container = document.getElementById('song-grid');
-          container.innerHTML = "";
-          
-          for (var i = 0; i < songs.length; i++) {
-            console.log(songs[i])
-            const title = songs[i].Title || "Titre inconnu";
-            const artist = songs[i].Artist || "Artiste inconnu";
-
-            const coverObj = songs[i].Cover;
-            const coverUrl = coverObj?.formats?.thumbnail?.url || coverObj?.url;
-            const fullCoverUrl = coverUrl ? `http://localhost:1337${coverUrl}` : "fallback.png";
-
-            const card = document.createElement('div');
-            card.className = "song-card";
-            card.innerHTML = `
-              <img src="${fullCoverUrl}" alt="${title}" width="157px" height="157px" />
-              <p><strong>${title}</strong><br><em>${artist}</em></p>
-            `;
-
-            container.appendChild(card);
-          };
-        } catch (err) {
-          console.error("Erreur lors de la récupération :", err);
-          alert("Erreur de récupération des musiques.");
-        }
-      }
-
     </script>
 </body>
 
