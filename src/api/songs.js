@@ -1,3 +1,6 @@
+require('dotenv').config();
+
+const secretKey = process.env.SECRET_KEY;
 //--------------Get all songs-------------------
 export async function fetchSongs() {
     try {
@@ -104,7 +107,7 @@ export async function handleSongSubmit(e) {
     const response = await fetch("http://localhost:1337/api/upload", {
         method: "POST",
         headers: {
-        "Authorization": `Bearer 00fabc626ac81314e86ba358b3b742cdd819de4b71aed51c02e219c17715d4a39f808816a5bb6ff640d13bf040aeed7eba5c6c6010f3d86a28095181e7967452399e55eb8c50defcff5a740f05407ed1d7e5881eb76133a04006e44dff952a0e4a7a33f8a4832445d4b181a5feda876d3f50a7e85503a57f9e97a16f40042228`
+        "Authorization": `${secretKey}`
         },
         body: formData
     });
@@ -132,7 +135,7 @@ export async function handleSongSubmit(e) {
         method: "POST",
         headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer 00fabc626ac81314e86ba358b3b742cdd819de4b71aed51c02e219c17715d4a39f808816a5bb6ff640d13bf040aeed7eba5c6c6010f3d86a28095181e7967452399e55eb8c50defcff5a740f05407ed1d7e5881eb76133a04006e44dff952a0e4a7a33f8a4832445d4b181a5feda876d3f50a7e85503a57f9e97a16f40042228`
+        "Authorization": `${secretKey}`
         },
         body: JSON.stringify(entryData)
     });
