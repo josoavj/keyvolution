@@ -1,6 +1,6 @@
-require('dotenv').config();
+console.log(window.api.apiKey);
 
-const secretKey = process.env.SECRET_KEY;
+const secretKey = window.api.apiKey;
 //--------------Get all songs-------------------
 export async function fetchSongs() {
     try {
