@@ -10,6 +10,12 @@ contextBridge.exposeInMainWorld('versions', {
   
 })
 
+
+contextBridge.exposeInMainWorld('api', {
+  apiKey: process.env.SECRET_KEY,
+});
+
+
 contextBridge.exposeInMainWorld('electron', {
   navigateTo: (page) => ipcRenderer.send('navigate-to', page)
 });
