@@ -16,7 +16,7 @@ export async function fetchUsers() {
       console.log(username)
       const avatarObj = user.Avatar || {};
       const avatarUrl = avatarObj.formats?.thumbnail?.url || avatarObj.url;
-      const fullAvatarUrl = avatarUrl ? `http://localhost:1337${avatarUrl}` : "../../Design/Avatar.png";
+      const fullAvatarUrl = avatarUrl ? `http://localhost:1337${avatarUrl}` : "../Design/Avatar.png";
       console.log(fullAvatarUrl)
       const img = document.createElement("img");
       img.src = fullAvatarUrl;
@@ -49,7 +49,7 @@ export async function fetchUsers2() {
 
       const avatarObj = user.Avatar || {};
       const avatarUrl = avatarObj.formats?.thumbnail?.url || avatarObj.url;
-      const fullAvatarUrl = avatarUrl ? `http://localhost:1337${avatarUrl}` : "../../Design/Avatar.png";
+      const fullAvatarUrl = avatarUrl ? `http://localhost:1337${avatarUrl}` : "../Design/Avatar.png";
 
       // Création de la carte utilisateur
       const li = document.createElement("li");
