@@ -2,6 +2,9 @@
 2. Home Page
 3. Workspace Page
 4. Composants réutilisables */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 
 /* 1. Landing Page */
@@ -650,6 +653,30 @@ header {
     width: 30px;
     height: 30px;
 }
+
+.btn-workspace {
+  position: absolute;
+  right: 2rem;
+  margin-top: 400px !important;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.user-section {
+  max-height: 400px; /* ou la hauteur que tu veux */
+  overflow-y: auto;
+  color: white;
+  position: absolute;
+  right: 2rem;
+  width: 300px;
+  background: linear-gradient(to right, rgba(39, 140, 126, 0.2), rgba(23, 26, 155, 0.2));
+  padding: 1rem;
+  border-radius: 1rem;
+  font-family: "Noto Sans", sans-serif;
+  font-weight: lighter;
+}
+
 /*.main-content {
     flex-grow: 1;
     display: flex;

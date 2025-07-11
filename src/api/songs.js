@@ -1,5 +1,3 @@
-console.log(window.api.apiKey);
-
 const secretKey = window.api.apiKey;
 //--------------Get all songs-------------------
 export async function fetchSongs() {
@@ -168,6 +166,7 @@ export function logFormData(formData, name) {
 
 //------------CRUD for playlists----------------
 
+let songs = []; // Déclaration globale (au niveau module)
 
 //fonction fetchPlaylist pour stocker les musiques
 export async function fetchPlaylist() {
@@ -196,18 +195,27 @@ try {
     const fullCoverUrl = coverUrl ? `http://localhost:1337${coverUrl}` : "../../Design/Ellipse.png";
 
     const li = document.createElement("li");
+
+    // Génère l'élément avec un bouton sans onclick inline
     li.innerHTML = `
-        <img src="${fullCoverUrl}" alt="cover" class="play-cover" />
-        <span>${(i + 1).toString().padStart(2, '0')}</span>
-        <div>
+    <img src="${fullCoverUrl}" alt="cover" class="play-cover" />
+    <span>${(i + 1).toString().padStart(2, '0')}</span>
+    <div>
         <p>${title}</p>
         <small>${artist}</small>
         <div class="progress-bar"><div class="progress"></div></div>
-        </div>
-        <button class="play-btn" onclick="playSong(${i})">
+    </div>
+    <button class="play-btn">
         <img src="../../Design/icons/play-btn.png" alt="play" width="30px" height="30px"/>
-        </button>
+    </button>
     `;
+
+    // Ajouter un écouteur d'événement au bouton
+    const playButton = li.querySelector(".play-btn");
+    playButton.addEventListener("click", () => {
+    redirectToWorkspace(song);
+    });
+
     container.appendChild(li);
     //return songs
     }

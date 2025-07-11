@@ -41,9 +41,9 @@
           <span></span>
         </div>
 
-        <div class="profile">
-          <img src="../../Design/Avatar.png" alt="Profil" />
+        <div class="profile" id="profile">
         </div>
+
       </div>
     </header>
 
@@ -55,10 +55,12 @@
       <ul class="playlist" id="playlist-container">
       </ul>
       <script type="module">
-        import {fetchPlaylist} from './api/songs.js'; 
+        import { fetchPlaylist } from './api/songs.js';
+        import { fetchUsers } from './api/users.js';
 
         document.addEventListener('DOMContentLoaded', () => {
-        fetchPlaylist();
+          fetchPlaylist();
+          fetchUsers();
         });
       </script>
     </section>
@@ -108,95 +110,15 @@
     </script>
 
     <script>
-      // Variables globales pour gérer l'audio
-      let currentAudio = null;
-      let currentSongIndex = -1;
-      let songs = []; // On va stocker les musiques ici
+      function redirectToWorkspace(song) {
+        if (!song) return;
 
-      // Fonction pour jouer une musique
-      async function playSong(index) {
-      try {
+        localStorage.setItem('selectedSong', JSON.stringify({
+          title: song.Title || "Unknown Song",
+          composer: song.Artist || "Unknown Composer",
+        }));
 
-          // NOUVELLE LOGIQUE : Si c'est la même chanson, on fait pause/play
-          if (currentSongIndex === index && currentAudio) {
-          if (currentAudio.paused) {
-              currentAudio.play();
-          } else {
-              currentAudio.pause();
-          }
-          return; // ⚠️ Important : on sort de la fonction ici
-          }
-
-          // Arrêter l'audio précédent s'il existe
-          if (currentAudio) {
-          currentAudio.pause();
-          currentAudio.currentTime = 0;
-          }
-
-          // Récupérer les données de la musique
-          const song = songs[index];
-          if (!song || !song.MusicFile) {
-          console.error("Fichier audio non trouvé");
-          return;
-          }
-
-          // Construire l'URL du fichier audio
-          const audioUrl = `http://localhost:1337${song.MusicFile.url}`;
-          
-          // Créer et configurer l'audio
-          currentAudio = new Audio(audioUrl);
-          currentSongIndex = index;
-          
-          // Événements audio
-          currentAudio.onloadstart = () => {
-          console.log("Chargement de la musique...");
-          };
-          
-          currentAudio.oncanplay = () => {
-          console.log("Prêt à jouer");
-          currentAudio.play();
-          };
-          
-          currentAudio.onplay = () => {
-          console.log("Lecture démarrée");
-          updatePlayButton(index, true);
-          };
-          
-          currentAudio.onpause = () => {
-          console.log("Lecture en pause");
-          updatePlayButton(index, false);
-          };
-          
-          currentAudio.onended = () => {
-          console.log("Lecture terminée");
-          updatePlayButton(index, false);
-          };
-          
-          currentAudio.onerror = (error) => {
-          console.error("Erreur de lecture:", error);
-          alert("Erreur lors de la lecture du fichier audio");
-          };
-          
-      } catch (error) {
-          console.error("Erreur dans playSong:", error);
-      }
-      }
-
-      // Fonction pour mettre à jour l'apparence du bouton play
-      function updatePlayButton(index, isPlaying) {
-      const playButtons = document.querySelectorAll('.play-btn');
-
-      // Réinitialiser tous les boutons
-      playButtons.forEach((btn, i) => {
-          const img = btn.querySelector('img');
-          if (i === index && isPlaying) {
-          img.src = "../../Design/icons/play-btn2.png"; // Changez le chemin si nécessaire
-          img.alt = "pause";
-          } else {
-          img.src = "../../Design/icons/play-btn.png";
-          img.alt = "play";
-          }
-      });
+        window.location.href = './workspace.html';
       }
     </script>
 </body>
