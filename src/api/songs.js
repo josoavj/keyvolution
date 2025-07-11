@@ -192,7 +192,7 @@ try {
 
     const coverObj = song.Cover;
     const coverUrl = coverObj?.formats?.thumbnail?.url || coverObj?.url;
-    const fullCoverUrl = coverUrl ? `http://localhost:1337${coverUrl}` : "../../Design/Ellipse.png";
+    const fullCoverUrl = coverUrl ? `http://localhost:1337${coverUrl}` : "../Design/Ellipse.png";
 
     const li = document.createElement("li");
 
@@ -206,7 +206,7 @@ try {
         <div class="progress-bar"><div class="progress"></div></div>
     </div>
     <button class="play-btn">
-        <img src="../../Design/icons/play-btn.png" alt="play" width="30px" height="30px"/>
+        <img src="../Design/icons/play-btn.png" alt="play" width="30px" height="30px"/>
     </button>
     `;
 

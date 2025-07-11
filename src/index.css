@@ -18,14 +18,14 @@ body {
 
 /* Styles pour le Landing Page */
 #landing-page {
-  background-image: url(../../Design/fond.png);
+  background-image: url(../Design/fond.png);
   background-repeat: no-repeat;
 }
 
 #ispm {
   width: 83px;
   height: 83px;
-  background-image: url(../../Design/ISPM.png);
+  background-image: url(../Design/ISPM.png);
   padding-top: 20px;
   display: flex;
   align-items: center;
@@ -62,7 +62,7 @@ body {
   display: flex;
   width: 359.13px;
   height: 323px;
-  background-image: url(../../Design/logo.png);
+  background-image: url(../Design/logo.png);
   padding-top: 20px;
   align-items: center;
   justify-content: center;
@@ -449,7 +449,7 @@ body {
 }
 
 .modal-content {
-  background-image: url(../../Design/fondModla.png);
+  background-image: url(../Design/fondModla.png);
   padding: 2rem;
   border-radius: 30px;
   max-width: 409px;
