@@ -581,6 +581,7 @@ export interface ApiUtilisateurUtilisateur extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    Avatar: Schema.Attribute.Media<'images' | 'files'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

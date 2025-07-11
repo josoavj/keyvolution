@@ -33,6 +33,14 @@
       "relation": "manyToMany",
       "target": "api::materiel.materiel",
       "inversedBy": "utilisateurs"
+    },
+    "Avatar": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

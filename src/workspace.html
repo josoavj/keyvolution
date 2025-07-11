@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="../dist/renderer.js"></script>
 </head>
 <body id="workspace-page">
     <header>
@@ -17,26 +18,63 @@
             <img src="../../Design/logo2.png" alt="Logo de l'application musicale">
         </div>
         <div class="title">Lorem ipsum dolor sit amet, lorem ipsum dolor</div>
-    </header>
 
-    <div class="toggle-menu">
-      <div class="burger"></div>
-      <div class="switch"></div>
-    </div>
-    
-    <section class="playlist-section">
-      <div class="playlist-header">
-        <h3>Play Lists</h3>
-        <button class="add-btn" onclick="addSong()"><img src="../../Design/icons/AddSong.png" alt="add" width="30px" height="30px"/></button>
+        <div class="toggle-menu">
+        <div class="searchbar">
+          <input type="text" placeholder="Recherche" />
+          <button class="search-btn">🔍</button>
+        </div>
+
+        <div class="burger">
+          <!-- Icône menu burger -->
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <div class="profile" id="profile">
+        </div>
+
+      <script type="module">
+        import { fetchUsers, fetchUsers2 } from './api/users.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+          fetchUsers();
+          fetchUsers2()
+        });
+      </script>
+
       </div>
-      <ul class="playlist" id="playlist-container">
+    </header>
+     
+    <section class="user-section" style="margin-top: 100px !important;">
+      <!-- <div class="user-header">
+        <h3>Utilisateurs</h3>
+      </div> -->
+      <ul class="user" id="user-container">
       </ul>
     </section>
+
+    <div class="btn-workspace">
+      <button class="bg-blue-600 w-[350px] h-[50px] rounded-lg text-white hover:bg-blue-900">Sauvegarder ma progression</button>
+      <button class="border-2 border-blue-600 w-[350px] h-[50px] rounded-lg hover:bg-slate-500 mt-2 text-white">Réinitialiser ma progression</button>
+      <button class="border-2 border-blue-600 w-[350px] h-[50px] rounded-lg hover:bg-slate-500 mt-2 text-white">Syncrhoniser avec un piano</button>
+    </div>
+    <div id="songModal" class="modal hidden">
+      <div class="modal-content" id="modalFormContainer">
+        <!-- Le formulaire JS s’insèrera ici -->
+      </div>
+    </div>
+    <script type="module">
+      import { addSong, cancelAdd, handleSongSubmit, logFormData } from './api/songs.js';
+
+      document.getElementById("add-btn").addEventListener("click", () => {
+        addSong();
+      });
+
+    </script>
     <div class="main-content">
-        <div class="music-player">
-            <img src="../../Design/Learn.png" alt="Worskpace">
-        </div>
-        </div>
+        <div id="root"></div> <!-- React va s'injecter ici -->
         
         <footer class="bottom-menu">
         <button onclick="goToPage('workspace')"><img src="../../Design/icons/piano.png" alt="piano"/></button>
@@ -52,78 +90,6 @@
         }
     </script>
 
-
-    <script>
-        function addSong() {
-          alert("Glisser/Déposer la chanson à décomposer");
-        }
-    </script>
-
-    <script>
-      function TestStrapi(){
-        fetch('http://localhost:1337/api/musiques')
-        .then(res => res.json())
-        .then(data => {
-          console.log(data)
-          const title = data.data[0]?.Title || "Pas de titre trouvé";
-          alert("Titre de la première musique : " + title);
-        })
-        .catch(err => {
-          console.error("Erreur :", err);
-          alert("Erreur de récupération des données");
-        });
-      }
-    </script>
-
-        <script>
-      async function fetchPlaylist() {
-        try {
-          const res = await fetch('http://localhost:1337/api/musiques?populate=*');
-          const data = await res.json();
-
-          let songs = data.data;
-
-          // 🔀 Mélanger les musiques (shuffle)
-          songs = songs.sort(() => Math.random() - 0.5);
-
-          // 📦 Conteneur de la playlist
-          const container = document.getElementById("playlist-container");
-          container.innerHTML = "";
-
-          // 🔢 Nombre de musiques à afficher (optionnel car scrollable)
-          const limit = songs.length; // ou limiter à 10 si tu veux
-          for (let i = 0; i < limit; i++) {
-            const song = songs[i];
-            const title = song.Title || "Titre inconnu";
-            const artist = song.Artist || "Artiste inconnu";
-
-            const coverObj = song.Cover;
-            const coverUrl = coverObj?.formats?.thumbnail?.url || coverObj?.url;
-            const fullCoverUrl = coverUrl ? `http://localhost:1337${coverUrl}` : "../../Design/Ellipse.png";
-
-            const li = document.createElement("li");
-            li.innerHTML = `
-              <img src="${fullCoverUrl}" alt="cover" class="play-cover" />
-              <span>${(i + 1).toString().padStart(2, '0')}</span>
-              <div>
-                <p>${title}</p>
-                <small>${artist}</small>
-                <div class="progress-bar"><div class="progress"></div></div>
-              </div>
-              <button class="play-btn" onclick="playSong(${i})">
-                <img src="../../Design/icons/play-btn.png" alt="play" width="30px" height="30px"/>
-              </button>
-            `;
-            container.appendChild(li);
-          }
-        } catch (err) {
-          console.error("Erreur lors de la récupération :", err);
-        }
-      }
-
-      // Appeler la fonction au chargement
-      document.addEventListener("DOMContentLoaded", fetchPlaylist);
-    </script>
 </body>
 
 </html>
