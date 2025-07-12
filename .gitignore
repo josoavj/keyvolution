@@ -90,6 +90,7 @@ typings/
 
 # Electron-Forge
 out/
+*.json
 /.idea
 backend/package-lock.json
 /package-lock.json
