@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>KeyVolution Piano learning app</title>
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="../index.css" />
     <link rel="stylesheet" href="responsive.css"/>
   </head>
   <body id="landing-page">
@@ -25,9 +25,9 @@
 
     <script>
       function goToPage(page) {
-          window.electron.navigateTo(page);
+          window.electron.navigateTo(`./Home/${page}`);
       }
     </script>
   </body>
-  <script src="./renderer.js"></script>
+  <script src="../renderer.js"></script>
 </html>

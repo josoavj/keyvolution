@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KeyVolution - Workspace</title>
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="../index.css" />
     <!-- <link rel="stylesheet" href="responsive.css"/> -->
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <script src="../dist/renderer.js"></script>
+    <script src="../../dist/renderer.js"></script>
 </head>
 <body id="workspace-page">
     <header>
         <div class="logo">
-            <img src="../Design/logo2.png" alt="Logo de l'application musicale">
+            <img src="../../Design/logo2.png" alt="Logo de l'application musicale">
         </div>
         <div class="title">Lorem ipsum dolor sit amet, lorem ipsum dolor</div>
 
@@ -36,7 +36,7 @@
         </div>
 
       <script type="module">
-        import { fetchUsers, fetchUsers2 } from './api/users.js';
+        import { fetchUsers, fetchUsers2 } from '../api/users.js';
 
         document.addEventListener('DOMContentLoaded', () => {
           fetchUsers();
@@ -66,7 +66,7 @@
       </div>
     </div>
     <script type="module">
-      import { addSong, cancelAdd, handleSongSubmit, logFormData } from './api/songs.js';
+      import { addSong, cancelAdd, handleSongSubmit, logFormData } from '../api/songs.js';
 
       document.getElementById("add-btn").addEventListener("click", () => {
         addSong();
@@ -77,17 +77,20 @@
         <div id="root"></div> <!-- React va s'injecter ici -->
         
         <footer class="bottom-menu">
-        <button onclick="goToPage('workspace')"><img src="../Design/icons/piano.png" alt="piano"/></button>
-        <button onclick="goToPage('home')"><img src="../Design/icons/home.png" alt="home"/></button>
-        <button><img src="../Design/icons/library.png" alt="books"/></button>
+        <button onclick="goToPage1('workspace')"><img src="../../Design/icons/piano.png" alt="piano"/></button>
+        <button onclick="goToPage2('home')"><img src="../../Design/icons/home.png" alt="home"/></button>
+        <button><img src="../../Design/icons/library.png" alt="books"/></button>
         </footer>
     </div>
 
       
     <script>
-        function goToPage(page) {
-            window.electron.navigateTo(page);
-        }
+      function goToPage1(page) {
+          window.electron.navigateTo(`./Workspace/${page}`);
+      }
+      function goToPage2(page) {
+          window.electron.navigateTo(`./Home/${page}`);
+      }
     </script>
 
 </body>
