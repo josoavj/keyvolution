@@ -20,6 +20,7 @@ body {
 #landing-page {
   background-image: url(../Design/fond.png);
   background-repeat: no-repeat;
+  overflow-y: hidden !important;
 }
 
 #ispm {

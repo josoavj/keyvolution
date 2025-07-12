@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KeyVolution - HomePage</title>
-    <link rel="stylesheet" href="index.css"/>
+    <link rel="stylesheet" href="../index.css"/>
     <!-- <link rel="stylesheet" href="responsive.css"/> -->
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +25,7 @@
         </div>
       </div>
       <div class="right">
-        <img src="../Design/logo.png" alt="Logo" class="logo" width="252.73px" height="226px"/>
+        <img src="../../Design/logo.png" alt="Logo" class="logo" width="252.73px" height="226px"/>
       </div>
 
       <div class="toggle-menu">
@@ -50,13 +50,13 @@
     <section class="playlist-section">
       <div class="playlist-header">
         <h3>Play Lists</h3>
-        <button class="add-btn" id="add-btn"><img src="../Design/icons/AddSong.png" alt="add" width="30px" height="30px"/></button>
+        <button class="add-btn" id="add-btn"><img src="../../Design/icons/AddSong.png" alt="add" width="30px" height="30px"/></button>
       </div>
       <ul class="playlist" id="playlist-container">
       </ul>
       <script type="module">
-        import { fetchPlaylist } from './api/songs.js';
-        import { fetchUsers } from './api/users.js';
+        import { fetchPlaylist } from '../api/songs.js';
+        import { fetchUsers } from '../api/users.js';
 
         document.addEventListener('DOMContentLoaded', () => {
           fetchPlaylist();
@@ -71,7 +71,7 @@
       </div>
     </div>
     <script type="module">
-      import { addSong, cancelAdd, handleSongSubmit, logFormData } from './api/songs.js';
+      import { addSong, cancelAdd, handleSongSubmit, logFormData } from '../api/songs.js';
 
       document.getElementById("add-btn").addEventListener("click", () => {
         addSong();
@@ -87,7 +87,7 @@
       <div class="song-grid" id="song-grid">
       </div>
       <script type="module">
-        import {fetchSongs} from './api/songs.js'; 
+        import {fetchSongs} from '../api/songs.js'; 
 
         document.addEventListener('DOMContentLoaded', () => {
         fetchSongs();
@@ -97,15 +97,18 @@
     </section>
 
     <footer class="bottom-menu">
-      <button onclick="goToPage('workspace')"><img src="../Design/icons/piano.png" alt="piano"/></button>
-      <button onclick="goToPage('index')"><img src="../Design/icons/home.png" alt="home"/></button>
-      <button><img src="../Design/icons/library.png" alt="books"/></button>
+      <button onclick="goToPage1('workspace')"><img src="../../Design/icons/piano.png" alt="piano"/></button>
+      <button onclick="goToPage2('index')"><img src="../../Design/icons/home.png" alt="home"/></button>
+      <button><img src="../../Design/icons/library.png" alt="books"/></button>
     </footer>
   </div>
         
     <script>
-      function goToPage(page) {
-          window.electron.navigateTo(page);
+      function goToPage1(page) {
+          window.electron.navigateTo(`./Workspace/${page}`);
+      }
+      function goToPage2(page) {
+          window.electron.navigateTo(`./Landing_page/${page}`);
       }
     </script>
 
@@ -118,7 +121,7 @@
           composer: song.Artist || "Unknown Composer",
         }));
 
-        window.location.href = './workspace.html';
+        window.location.href = '../Workspace/workspace.html';
       }
     </script>
 </body>
