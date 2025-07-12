@@ -95,3 +95,7 @@ backend/package-lock.json
 package-lock.json
 backend/package-lock.json
 backend/package.json
+package-lock.json
+package.json
+backend\types\generated\contentTypes.d.ts
+backend\types\generated\components.d.ts
