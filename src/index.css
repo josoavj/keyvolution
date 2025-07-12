@@ -122,7 +122,8 @@ body {
   color: white;
   justify-content: space-between;
   align-items: center;
-  position: relative;
+  width: 95vw;
+  /*background-color: white;*/
 }
 
 .left {
@@ -373,6 +374,7 @@ body {
   position: relative;
   top: 7rem;
   bottom: 2rem;
+  margin-left: 25px;
 }
 
 .songs-section .song-grid {
