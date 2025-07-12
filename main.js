@@ -4,8 +4,10 @@ require('dotenv').config();
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1300,
+    height: 680,
+    resizable: false,
+    autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, 'src/preload.js'),
       contextIsolation: true,
