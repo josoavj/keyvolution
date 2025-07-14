@@ -10,6 +10,7 @@
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
     "Title": {
       "type": "string"
@@ -35,10 +36,18 @@
         "audios"
       ]
     },
-    "partition": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::partition.partition"
+    "Partition": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "ProcessedAt": {
+      "type": "datetime"
+    },
+    "NotesCount": {
+      "type": "integer"
     }
   }
 }

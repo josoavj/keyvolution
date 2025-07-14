@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>KeyVolution Piano learning app</title>
+    <link rel="stylesheet" href="./index.css" />
+    <!-- <link rel="stylesheet" href="responsive.css" /> -->
+    
+  </head>
+  <body id="landing-page">
+    <div id="ispm"></div>
+
+    <div class="slogan-container">
+      <p class="slogan">
+        Transformez n'importe quelle chanson en
+        <strong style="color: #F73DEE;">partitions interactives</strong>
+      </p>
+    </div>
+
+    <div id="logo"></div>
+    <div class="btn-container">
+      <button class="btn" id="startButton">Commencer</button>
+    </div>
+
+    <!-- MODAL SIGN IN / SIGN UP -->
+<div id="authModal" class="modal1-overlay">
+  <div class="modal1-box">
+    <span class="modal1-close" onclick="closeModal()">&times;</span>
+    <div class="logo-container">
+      <img src="../Design/logo2.png" alt="logo" class="modal1-logo" />
+    </div>
+    <div class="switch-buttons">
+      <button id="btnSignIn" class="active" onclick="showSignIn()">Log In</button>
+      <button id="btnSignUp" onclick="showSignUp()">Sign Up</button>
+    </div>
+
+    <!-- FORMULAIRE SIGN IN -->
+    <form id="formSignIn" class="modal1-form">
+      <input type="text" placeholder="Nom d'utilisateur ou Email" required />
+      <input type="password" placeholder="Mot de passe" required />
+      <button type="submit" class="primary-btn" onclick="goToHome()">Se connecter</button>
+    </form>
+
+    <!-- FORMULAIRE SIGN UP -->
+    <form id="formSignUp" class="modal1-form hidden">
+      <input type="text" placeholder="Nom d'utilisateur" required />
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Mot de passe" required />
+      <input type="password" placeholder="Confirmation mot de passe" required />
+        <input type="file" id="signupImage" accept="image/png, image/jpeg" />
+        <img id="previewSignupImage" src="" alt="Aperçu image" style="max-width: 100px; margin-top: 10px; border-radius: 10px; display: none;" />
+        <button type="submit" class="primary-btn" onclick="goToHome()">S'inscrire</button>
+    </form>
+  </div>
+</div>
+
+
+<script>
+  const modal = document.getElementById("authModal");
+  const formSignIn = document.getElementById("formSignIn");
+  const formSignUp = document.getElementById("formSignUp");
+  const btnSignIn = document.getElementById("btnSignIn");
+  const btnSignUp = document.getElementById("btnSignUp");
+
+  document.getElementById("startButton").addEventListener("click", () => {
+    modal.style.display = "flex";
+  });
+
+  function closeModal() {
+    modal.style.display = "none";
+  }
+
+  function showSignIn() {
+    formSignIn.classList.remove("hidden");
+    formSignUp.classList.add("hidden");
+    btnSignIn.classList.add("active");
+    btnSignUp.classList.remove("active");
+
+  }
+
+  function showSignUp() {
+    formSignUp.classList.remove("hidden");
+    formSignIn.classList.add("hidden");
+    btnSignUp.classList.add("active");
+    btnSignIn.classList.remove("active");
+
+  }
+
+  function goToHome() {
+    window.location.href = "./Home/home.html";
+  }
+
+</script>
+  </body>
+  <script src="./renderer.js"></script>
+</html>

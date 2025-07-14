@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 </head>
 <body id="home-page" onload="fetchSongs()">
   <div class="container">
@@ -51,6 +52,16 @@
       <div class="playlist-header">
         <h3>Play Lists</h3>
         <button class="add-btn" id="add-btn"><img src="../../Design/icons/AddSong.png" alt="add" width="30px" height="30px"/></button>
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('add-btn');
+            if (btn && window.showMusicProcessor) {
+              btn.addEventListener('click', () => {
+                window.showMusicProcessor();
+              });
+            }
+          });
+        </script>
       </div>
       <ul class="playlist" id="playlist-container">
       </ul>
@@ -70,22 +81,27 @@
         <!-- Le formulaire JS s’insèrera ici -->
       </div>
     </div>
-    <script type="module">
-      import { addSong, cancelAdd, handleSongSubmit, logFormData } from '../api/songs.js';
+    <script src="../../dist/addsong.js"></script>
 
-      document.getElementById("add-btn").addEventListener("click", () => {
-        addSong();
+    <!-- <script type="module">
+      import { showMusicProcessor } from '../showMusicProcessor.js';
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const addBtn = document.getElementById('add-btn');
+        if (addBtn) {
+          addBtn.addEventListener('click', () => {
+            showMusicProcessor();
+          });
+        }
       });
+    </script> -->
 
-      // La fonction cancelAdd() est déjà reliée dans ton HTML via onClick dans le bouton du formulaire généré
-      // Si tu veux éviter inline onclick (plus propre), on peut aussi l’attacher dynamiquement :
-      // (On pourra l'améliorer si tu veux)
 
-    </script>
     <section class="songs-section">
       <h3>Top played song</h3>
       <div class="song-grid" id="song-grid">
       </div>
+    
       <script type="module">
         import {fetchSongs} from '../api/songs.js'; 
 
@@ -93,22 +109,48 @@
         fetchSongs();
         });
       </script>
-
+      
     </section>
 
     <footer class="bottom-menu">
-      <button onclick="goToPage1('workspace')"><img src="../../Design/icons/piano.png" alt="piano"/></button>
-      <button onclick="goToPage2('index')"><img src="../../Design/icons/home.png" alt="home"/></button>
-      <button><img src="../../Design/icons/library.png" alt="books"/></button>
+      <button class="nav-btn" id="btn-workspace" onclick="setActive(this, 'btn-workspace'); goToPage1('workspace')">
+        <img src="../../Design/icons/piano.png" alt="piano" />
+      </button>
+
+      <button class="nav-btn" id="btn-home" onclick="setActive(this, 'btn-home'); goToPage2('index')">
+        <img src="../../Design/icons/home.png" alt="home" />
+      </button>
+
+      <button class="nav-btn" id="btn-library" onclick="setActive(this, 'btn-library'); goToPage3('library')">
+        <img src="../../Design/icons/library.png" alt="books" />
+      </button>
     </footer>
   </div>
         
+      <!-- Script navbar -->
+    <script>
+        function setActive(clickedBtn, id) {
+          // Supprime l’ancienne classe
+          const buttons = document.querySelectorAll('.nav-btn');
+          buttons.forEach(btn => btn.classList.remove('active'));
+
+          // Active le bouton cliqué
+          clickedBtn.classList.add('active');
+
+          // Enregistre l’ID dans le localStorage
+          localStorage.setItem('activeNav', id);
+        }
+    </script>
+
     <script>
       function goToPage1(page) {
           window.electron.navigateTo(`./Workspace/${page}`);
       }
       function goToPage2(page) {
-          window.electron.navigateTo(`./Landing_page/${page}`);
+          window.electron.navigateTo(page);
+      }
+      function goToPage3(page) {
+          window.electron.navigateTo(`./Library/${page}`);
       }
     </script>
 
@@ -124,6 +166,17 @@
         window.location.href = '../Workspace/workspace.html';
       }
     </script>
+
+        <script>
+  // Restaurer l'état actif au chargement
+  window.addEventListener('DOMContentLoaded', () => {
+    const activeId = localStorage.getItem('activeNav');
+    if (activeId) {
+      const btn = document.getElementById(activeId);
+      if (btn) btn.classList.add('active');
+    }
+  });
+</script>
 </body>
 
 </html>

@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <title>KeyVolution Piano learning app</title>
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="./index.css" />
     <link rel="stylesheet" href="responsive.css"/>
-  <script defer src="renderer.js"></script></head>
+    <!-- <script src="../dist/basic.js"></script> -->
+  <script defer src="renderer.js"></script><script defer src="basic.js"></script></head>
   <body id="landing-page">
     <div id="ispm">
     
@@ -19,13 +20,17 @@
     <div id="logo">
 
     </div>
+
+
+
+
     <div class="btn-container">
       <button class="btn" onclick="goToPage('home')">Commencer</button>
     </div>
-
+    <!-- <div id="test-basic"></div> Test Basic-pitch -->
     <script>
       function goToPage(page) {
-          window.electron.navigateTo(page);
+          window.electron.navigateTo(`./Home/${page}`);
       }
     </script>
   </body>

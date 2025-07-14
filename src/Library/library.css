@@ -1,0 +1,179 @@
+body{
+    background-color: #04051E;
+}
+#header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#menu{
+    width: 470px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+#pageTitle{
+    color: white;
+}
+
+#searchInput{
+    color: white;
+    background: none;
+    box-sizing: border-box;
+    width: 308px;
+    height: 63px;
+    left: 1208px;
+    top: 43px;
+    backdrop-filter: blur(20px);
+    background: none;
+    text-decoration: inherit;
+    font-family: system-ui;
+    font-size: 1rem;
+    padding-left: 27px;
+    border: 2px solid;
+    border-image-slice: 1;
+    border-width: 2px;
+    border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+}
+#profil{
+    /*background-color: #de9292;*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:131px;
+    height: 63px;
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+    background: linear-gradient(90deg, rgba(130, 81, 139, 0.2) 0%, rgba(23, 26, 155, 0.2) 100%);
+    backdrop-filter: blur(20px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 35px;
+}
+.list-song-container{
+    /*background-color: #fff;*/
+    margin-top: 150px;
+}
+.list-song-container h3{ 
+    /*background-color: #fff;*/
+    color: white;
+}
+.songs-section{
+    margin-top: -100px;
+    margin-left: 0px;
+    padding: 0px;
+}
+.song-grid{
+    margin-top: -80px;
+}
+.your-song-grid{
+    width: 950px;
+}
+.song-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      border-bottom: 1px solid #8D90C7;
+      font-size: 14px;
+    }
+
+    .index {
+      width: 30px;
+      text-align: center;
+      font-weight: bold;
+      color: white;
+    }
+
+    .cover {
+      width: 50px;
+      height: 50px;
+      margin: 0 15px;
+      border-radius: 4px;
+    }
+
+    .song-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .song-title {
+      font-weight: bold;
+      margin-bottom: 4px;
+      color: white;
+    }
+
+    .song-artist {
+      font-size: 12px;
+      color: #ccc;
+    }
+
+    .difficulty {
+      width: 100px;
+      text-align: center;
+      font-weight: bold;
+      color: white;
+    }
+
+    .progress {
+      width: 150px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .progress-bar {
+      background: #555;
+      width: 125px;
+      height: 6px;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      background: #1B8BC4;
+      height: 100%;
+      width: 80%;
+    }
+
+    .time {
+      margin-left: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .time::before {
+      content: "⏱️";
+      font-size: 14px;
+    }
+.hit-container{
+    position: absolute;
+    width: 460px;
+    height: 783px;
+    left: 1020px;
+    top: 160px;
+    background: linear-gradient(90deg, rgba(39, 140, 126, 0.26) 0%, rgba(23, 26, 155, 0.26) 100%);
+    border-radius: 20px;
+}
+.hit-container > div > h1{
+    color: white;
+    padding-left: 25px;
+}
+
+.hit-img {
+background-color: #fff;
+  width: 390px;
+  height: 261px;
+  overflow: hidden; /* hide overflow if image is larger */
+  margin: 35px;
+  background-image: url('../../Design/song cover/hit-cover.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 25px;
+}

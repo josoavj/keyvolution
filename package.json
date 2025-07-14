@@ -20,9 +20,14 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@spotify/basic-pitch": "^1.0.1",
+    "@tensorflow/tfjs-backend-wasm": "^4.22.0",
+    "@tonejs/midi": "^2.0.28",
     "dotenv": "^17.2.0",
     "electron-squirrel-startup": "^1.0.1",
     "lucide-react": "^0.525.0",
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
@@ -47,7 +52,7 @@
     "postcss-loader": "^8.1.1",
     "style-loader": "^4.0.0",
     "tailwindcss": "^3.4.1",
-    "webpack": "^5.100.0",
+    "webpack": "^5.100.1",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.2"
   }

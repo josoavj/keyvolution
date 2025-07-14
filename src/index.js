@@ -25,7 +25,7 @@ const createWindow = () => {
 // Gestion du changement de page via IPC
 ipcMain.on('navigate-to', (event, page) => {
   if (mainWindow) {
-    mainWindow.loadFile(`src/Landing_page/${page}.html`);
+    mainWindow.loadFile(`src/${page}.html`);
   }
 });
 

@@ -491,10 +491,9 @@ export interface ApiMusiqueMusique extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     MusicFile: Schema.Attribute.Media<'files' | 'audios'>;
-    partition: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::partition.partition'
-    >;
+    NotesCount: Schema.Attribute.Integer;
+    Partition: Schema.Attribute.Media<'files'>;
+    ProcessedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
     Title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;

@@ -3,35 +3,35 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/renderer.jsx',  // Le point d'entrée React
+  entry: {
+    renderer: './src/renderer.jsx',
+    basic: './src/basic-pitch.jsx',
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js', // Donne renderer.js et basic.js
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
+        use: 'babel-loader',
       },
       {
-        test: /\.css$/i,
+        test: /\.css$/,
         use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
     ],
   },
-  resolve: {
-    extensions: ['.js', '.jsx'],
-  },
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'renderer.js',
-  },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',  // Ton fichier HTML de base
+      template: './src/index.html',
+      chunks: ['basic','renderer'], // Page principale
+      filename: 'index.html',
     }),
   ],
-  devServer: {
-    static: './dist',
-  },
 };
