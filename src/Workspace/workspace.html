@@ -75,17 +75,22 @@
     </script>
     <div class="main-content">
         <div id="root"></div> <!-- React va s'injecter ici -->
-        
-        <footer class="bottom-menu">
-
-        <button onclick="goToPage1('workspace')"><img src="../../Design/icons/piano.png" alt="piano"/></button>
-        <button onclick="goToPage2('home')"><img src="../../Design/icons/home.png" alt="home"/></button>
-        <button onclick="goToPage3('library')"><img src="../../Design/icons/library.png" alt="books"/></button>
-
-        </footer>
     </div>
 
-      
+    <footer class="bottom-menu">
+      <button class="nav-btn" id="btn-workspace" onclick="setActive(this, 'btn-workspace'); goToPage1('workspace')">
+        <img src="../../Design/icons/piano.png" alt="piano" />
+      </button>
+
+      <button class="nav-btn" id="btn-home" onclick="setActive(this, 'btn-home'); goToPage2('home')">
+        <img src="../../Design/icons/home.png" alt="home" />
+      </button>
+
+      <button class="nav-btn" id="btn-library" onclick="setActive(this, 'btn-library'); goToPage3('library')">
+        <img src="../../Design/icons/library.png" alt="books" />
+      </button>
+    </footer>
+
     <script>
       function goToPage1(page) {
           window.electron.navigateTo(`./Workspace/${page}`);
@@ -93,10 +98,34 @@
       function goToPage2(page) {
           window.electron.navigateTo(`./Home/${page}`);
       }
+
+      function setActive(clickedBtn, id) {
+          // Supprime l’ancienne classe
+          const buttons = document.querySelectorAll('.nav-btn');
+          buttons.forEach(btn => btn.classList.remove('active'));
+
+          // Active le bouton cliqué
+          clickedBtn.classList.add('active');
+
+          // Enregistre l’ID dans le localStorage
+          localStorage.setItem('activeNav', id);
+        }
+      
       function goToPage3(page) {
           window.electron.navigateTo(`${page}`);
       }
+      
     </script>
+    <script>
+      // Restaurer l'état actif au chargement
+      window.addEventListener('DOMContentLoaded', () => {
+        const activeId = localStorage.getItem('activeNav');
+        if (activeId) {
+          const btn = document.getElementById(activeId);
+          if (btn) btn.classList.add('active');
+        }
+      });
+</script>
 
 </body>
 
