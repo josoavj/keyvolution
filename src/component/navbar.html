@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeyVolution - HomePage</title>
+    <link rel="stylesheet" href="navbar.css"/>
+    <!-- <link rel="stylesheet" href="responsive.css"/> -->
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body id="home-page" onload="fetchSongs()">
+  <div class="container">
+
+    <footer class="bottom-menu">
+
+      <button onclick="goToPage1('workspace')"><img src="../../Design/icons/piano.png" alt="piano"/></button>
+      <button onclick="goToPage2('index')"><img src="../../Design/icons/home.png" alt="home"/></button>
+      <button><img src="../../Design/icons/library.png" alt="books"/></button>
+
+    </footer>
+  </div>
+        
+    <script>
+      function goToPage1(page) {
+          window.electron.navigateTo(`./Workspace/${page}`);
+      }
+      function goToPage2(page) {
+          window.electron.navigateTo(`./Landing_page/${page}`);
+      }
+    </script>
+
+    <script>
+      function redirectToWorkspace(song) {
+        if (!song) return;
+
+        localStorage.setItem('selectedSong', JSON.stringify({
+          title: song.Title || "Unknown Song",
+          composer: song.Artist || "Unknown Composer",
+        }));
+
+        window.location.href = '../Workspace/workspace.html';
+      }
+    </script>
+</body>
+
+</html>
