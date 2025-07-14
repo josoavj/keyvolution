@@ -127,20 +127,38 @@ body {
 }
 
 .left {
+  background-image: url('./../assets/img1.jpg');
+  background: cover;
   position: relative;
-  width: 50%;
+  width: 750px;
   margin-right: 20px ;
   top: 3rem;
+
+  border-radius: 15px;
+  padding: 30px;
+  min-height: 250px;
+
+  position: relative;
+  box-shadow: 0 10px 30px rgba(56, 55, 55, 0.4);
+  overflow: hidden;
 }
 
 .left h1 {
-  font-size: 30px;
+  /* font-size: 30px; */
   font-family: "Audiowide", sans-serif;
+
+  font-size: 2em;
+  margin: 0 0 10px 0;
+  color: white;
 }
 
 .left p {
   font-family: "Noto Sans", sans-serif;
   font-weight: lighter;
+
+  font-size: 1em;
+  line-height: 1.4;
+  margin-bottom: 20px;
 } 
 
 .learn-btn {
