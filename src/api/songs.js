@@ -36,6 +36,58 @@ export async function fetchSongs() {
         //return []
     }
 }
+//--------------Get all your songs in library-------------------
+export async function fetchYourSongs() {
+    try {
+        const res = await fetch('http://localhost:1337/api/musiques?populate=*');
+        const data = await res.json();
+
+        const songs = Array.from(data.data); // force la conversion en vrai tableau
+        console.log(songs)
+        console.log(songs.length)
+        const container = document.getElementById('your-song-grid');
+        container.innerHTML = "";
+        
+        for (var i = 0; i < songs.length; i++) {
+        console.log(songs[i])
+        const title = songs[i].Title || "Titre inconnu";
+        const artist = songs[i].Artist || "Artiste inconnu";
+
+        const coverObj = songs[i].Cover;
+        const coverUrl = coverObj?.formats?.thumbnail?.url || coverObj?.url;
+        const fullCoverUrl = coverUrl ? `http://localhost:1337${coverUrl}` : "fallback.png";
+
+        const card = document.createElement('div');
+        const progress = Math.floor(Math.random() * 101);
+        card.className = "song-list";
+        card.innerHTML = `
+            <div class="song-item">
+                <div class="index">${String(i + 1).padStart(2, '0')}</div>
+                <img class="cover" src="${fullCoverUrl}" alt="Ordinary Cover">
+                <div class="song-info">
+                    <div class="song-title">${title}</div>
+                        <div class="song-artist">${artist}</div>
+                    </div>
+                    <div class="difficulty">Difficile</div>
+                    <div>
+                        <span style="font-size: 10px; color:white">Progrès</span>
+                        <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${progress}%;"></div>
+                    </div>
+                </div>
+                <div class="time">03:07</div>
+            </div>
+        `;
+
+        container.appendChild(card);
+        //return songs
+        };
+    } catch (err) {
+        console.error("Erreur lors de la récupération :", err);
+        alert("Erreur de récupération des musiques.");
+        //return []
+    }
+}
 
 //---------------Create a new song----------------------
 export function addSong() {

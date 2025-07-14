@@ -127,38 +127,20 @@ body {
 }
 
 .left {
-  background-image: url('./../assets/img1.jpg');
-  background: cover;
   position: relative;
-  width: 750px;
+  width: 50%;
   margin-right: 20px ;
   top: 3rem;
-
-  border-radius: 15px;
-  padding: 30px;
-  min-height: 250px;
-
-  position: relative;
-  box-shadow: 0 10px 30px rgba(56, 55, 55, 0.4);
-  overflow: hidden;
 }
 
 .left h1 {
-  /* font-size: 30px; */
+  font-size: 30px;
   font-family: "Audiowide", sans-serif;
-
-  font-size: 2em;
-  margin: 0 0 10px 0;
-  color: white;
 }
 
 .left p {
   font-family: "Noto Sans", sans-serif;
   font-weight: lighter;
-
-  font-size: 1em;
-  line-height: 1.4;
-  margin-bottom: 20px;
 } 
 
 .learn-btn {
@@ -398,7 +380,7 @@ body {
 .songs-section .song-grid {
   display: flex;
   gap: 1rem;
-  margin-top: 2rem;
+  margin-top: 4rem;
   font-family: "Noto Sans", sans-serif;
   font-weight: lighter;
   text-align: center;
@@ -432,60 +414,24 @@ body {
 }
 
 .songs-section h3 {
-  /*position: fixed !important;*/
+  position: fixed !important;
 }
 
 
 .bottom-menu {
   position: fixed;
-  bottom: 20px;
+  bottom: 1rem;
   left: 50%;
   transform: translateX(-50%);
+  background: linear-gradient(to right, rgb(130, 81, 139, 0.2), rgb(23, 26, 155, 0.2));
+  padding: 0.5rem 2rem;
+  border-radius: 2rem;
   display: flex;
-  justify-content: space-between;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 12px 25px;
-  width: 260px;
-  border-radius: 40px;
-  background-image: linear-gradient(#1a1a1a, #1a1a1a),
-                    linear-gradient(90deg, #0ff, #f0f, #0ff);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-  box-shadow: 0 4px 20px rgb(151, 75, 155);
-  z-index: 100;
+  gap: 2rem;
 }
 
-.nav-btn {
-  background: none;
-  border: none;
-  padding: 10px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 3s ease, background 3s;
-  cursor: pointer;
-  position: relative;
-}
-
-.nav-btn img {
-  width: 28px;
-  height: 28px;
-  filter: invert(1);
-}
-
-/* Style pour le bouton actif (élevé et lumineux) */
-.nav-btn.active {
-  background: linear-gradient(90deg, #7f00ff, #e100ff);
-  transform: translateY(-20px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-}
-
-
-.center-btn img {
-  width: 28px;
-  height: 28px;
-  filter: invert(1);
+.bottom-menu button{
+  background: transparent;
 }
 
 .modal {
@@ -779,180 +725,3 @@ header {
     left: 30%;
     cursor: pointer;
 } */
-
-.modal-overlay {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
-
-  .modal-box {
-    background: linear-gradient(145deg, #0f0c29, #302b63, #24243e);
-    padding: 2rem;
-    border-radius: 20px;
-    position: relative;
-    width: 90%;
-    max-width: 400px;
-    color: white;
-    box-shadow: 0 0 20px rgba(0,0,0,0.6);
-  }
-
-  .modal-close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #fff;
-  }
-
-  .logo-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
-  }
-
-  .modal-logo {
-    width: 60px;
-    height: auto;
-  }
-
-  .switch-buttons {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
-  }
-
-  .switch-buttons button {
-    flex: 1;
-    padding: 10px 0;
-    border: none;
-    background: #fff;
-    color: #333;
-    cursor: pointer;
-    font-weight: bold;
-    border-radius: 25px 25px 0 0;
-    margin: 0 2px;
-    transition: background 0.3s;
-  }
-
-  .switch-buttons button.active {
-    background: #f73dee;
-    color: #fff;
-  }
-
-  .modal-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .modal-form input {
-    padding: 10px;
-    border: none;
-    border-radius: 10px;
-    background: #191919;
-    color: white;
-    outline: none;
-  }
-
-  .modal-form input::placeholder {
-    color: #aaa;
-  }
-
-  .primary-btn {
-    background: #f73dee;
-    padding: 10px;
-    border: none;
-    border-radius: 20px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-  }
-
-  .primary-btn:hover {
-    background: #d114c3;
-  }
-
-  .hidden {
-    display: none;
-  }
-
-  /* Style du modal authentification*/
-      #authModal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.5);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-      }
-
-      .modal-content {
-        background: white;
-        padding: 2rem;
-        border-radius: 10px;
-        width: 90%;
-        max-width: 400px;
-        position: relative;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-      }
-
-      .modal-content h2 {
-        margin-bottom: 1rem;
-        text-align: center;
-      }
-
-      .modal-content input {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 1rem;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-      }
-
-      .modal-content .btn-group {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .modal-close {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        font-size: 20px;
-        cursor: pointer;
-        color: #555;
-      }
-
-      .modal-content button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        background-color: #f73dee;
-        color: white;
-        cursor: pointer;
-      }
-
-      .modal-content button:hover {
-        background-color: #d114c3;
-      }
-
-      .modal-content .link {
-        background: none;
-        color: #f73dee;
-        text-decoration: underline;
-        cursor: pointer;
-      }
-
-
-      
