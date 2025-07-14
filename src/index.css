@@ -127,7 +127,7 @@ body {
 }
 
 .left {
-  background-image: url('./../assets/img1.jpg');
+  background-image: url('../Design/Nouveaute.png');
   background: cover;
   position: relative;
   width: 750px;
@@ -431,9 +431,9 @@ body {
   margin-bottom: -15px;
 }
 
-.songs-section h3 {
-  /*position: fixed !important;*/
-}
+/* .songs-section h3 {
+  position: fixed !important;
+} */
 
 
 .bottom-menu {
@@ -509,14 +509,16 @@ body {
   background-image: url(../Design/fondModla.png);
   padding: 2rem;
   border-radius: 30px;
-  max-width: 409px;
-  height: 449px;
+  max-width: 450px; /* agrandi si besoin */
   width: 90%;
+  max-height: 90vh; /* 🆕 limite en hauteur à l'écran */
+  overflow-y: auto; /* 🆕 permet le scroll vertical si dépassement */
   color: white;
   position: relative;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   font-family: 'Segoe UI', sans-serif;
 }
+
 
 .modal-content label {
   display: block;
@@ -780,7 +782,7 @@ header {
     cursor: pointer;
 } */
 
-.modal-overlay {
+.modal1-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(0, 0, 0, 0.7);
@@ -790,7 +792,7 @@ header {
     z-index: 9999;
   }
 
-  .modal-box {
+  .modal1-box {
     background: linear-gradient(145deg, #0f0c29, #302b63, #24243e);
     padding: 2rem;
     border-radius: 20px;
@@ -801,7 +803,7 @@ header {
     box-shadow: 0 0 20px rgba(0,0,0,0.6);
   }
 
-  .modal-close {
+  .modal1-close {
     position: absolute;
     top: 10px;
     right: 15px;
@@ -816,7 +818,7 @@ header {
     margin-bottom: 1rem;
   }
 
-  .modal-logo {
+  .modal1-logo {
     width: 60px;
     height: auto;
   }
@@ -845,13 +847,13 @@ header {
     color: #fff;
   }
 
-  .modal-form {
+  .modal1-form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
 
-  .modal-form input {
+  .modal1-form input {
     padding: 10px;
     border: none;
     border-radius: 10px;
@@ -860,7 +862,7 @@ header {
     outline: none;
   }
 
-  .modal-form input::placeholder {
+  .modal1-form input::placeholder {
     color: #aaa;
   }
 
@@ -883,7 +885,7 @@ header {
   }
 
   /* Style du modal authentification*/
-      #authModal {
+      #authModal1 {
         position: fixed;
         top: 0;
         left: 0;

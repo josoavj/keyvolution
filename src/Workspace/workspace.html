@@ -90,7 +90,19 @@
       </button>
     </footer>
     </div>
+    <script>
+        function setActive(clickedBtn, id) {
+          // Supprime l’ancienne classe
+          const buttons = document.querySelectorAll('.nav-btn');
+          buttons.forEach(btn => btn.classList.remove('active'));
 
+          // Active le bouton cliqué
+          clickedBtn.classList.add('active');
+
+          // Enregistre l’ID dans le localStorage
+          localStorage.setItem('activeNav', id);
+        }
+    </script>
       
     <script>
       function goToPage1(page) {
@@ -125,7 +137,16 @@
             }
           });
     </script>
-
+    <script>
+      // Restaurer l'état actif au chargement
+      window.addEventListener('DOMContentLoaded', () => {
+        const activeId = localStorage.getItem('activeNav');
+        if (activeId) {
+          const btn = document.getElementById(activeId);
+          if (btn) btn.classList.add('active');
+        }
+      });
+    </script>
 
 </body>
 

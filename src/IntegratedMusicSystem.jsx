@@ -47,6 +47,14 @@ const IntegratedMusicSystem = () => {
     return audioContextRef.current;
   };
 
+  function closeModal() {
+    const modal = document.getElementById('songModal');
+    if (modal) {
+      modal.classList.add('hidden');
+      document.body.classList.remove('modal-open'); // si tu as désactivé le scroll body
+    }
+  }
+
   // Gestion du drag & drop
   const handleDrag = (e) => {
     e.preventDefault();
@@ -396,18 +404,33 @@ const IntegratedMusicSystem = () => {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto bg-gradient-to-br from-slate-50 to-indigo-50 rounded-2xl shadow-2xl overflow-hidden">
+    <div className="w-full max-w-4xl mx-auto bg-gradient-to-br from-slate-50 to-indigo-50 rounded-2xl shadow-2xl overflow-hidden ">
       {/* En-tête */}
-      <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white p-3">
+      <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white p-3 relative">
+        {/* Bouton de fermeture en haut à droite */}
+        <button
+          onClick={closeModal}
+          className="absolute top-3 right-3 text-white hover:text-gray-200 transition-colors duration-200"
+          aria-label="Fermer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
         <div className="flex items-center justify-center gap-3 mb-2">
           <Music className="w-8 h-8" />
           <h1 className="text-3xl font-bold">Ajouter une chanson</h1>
-          {/* <Zap className="w-8 h-8" /> */}
         </div>
-        {/* <p className="text-center text-indigo-100">
-          Ajoutez votre musique, générez la partition et sauvegardez dans Strapi
-        </p> */}
       </div>
+
 
       {/* Formulaire d'informations */}
       <div className="p-3 border-b border-gray-200 bg-white">

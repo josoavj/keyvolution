@@ -16,8 +16,8 @@
   <div class="container">
     <header class="top-section">
       <div class="left">
-        <h1>Lorem ipsum dolor sit amet,<br> lorem ipsum dolor</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <h1>Die With A Smile</h1>
+        <p>Idéale pour les pianistes intermédiaires à avancés, elle propose une belle dynamique entre des accords expressifs, une rythmique fluide et une mélodie chantante.</p>
         <button class="learn-btn" onclick="goToPage('workspace')">Apprendre</button>
         <div class="slider-dots">
           <span class="dot active"></span>
@@ -25,9 +25,9 @@
           <span class="dot"></span>
         </div>
       </div>
-      <div class="right">
+      <!-- <div class="right">
         <img src="../../Design/logo.png" alt="Logo" class="logo" width="252.73px" height="226px"/>
-      </div>
+      </div> -->
 
       <div class="toggle-menu">
         <div class="searchbar">
@@ -161,6 +161,7 @@
         localStorage.setItem('selectedSong', JSON.stringify({
           title: song.Title || "Unknown Song",
           composer: song.Artist || "Unknown Composer",
+          url: `http://localhost:1337${song.Partition.url}` || "",
         }));
 
         window.location.href = '../Workspace/workspace.html';

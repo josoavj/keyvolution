@@ -153,7 +153,7 @@ body{
     }
 .hit-container{
     position: absolute;
-    width: 460px;
+    width: 310px;
     height: 783px;
     left: 1020px;
     top: 160px;
@@ -167,7 +167,7 @@ body{
 
 .hit-img {
 background-color: #fff;
-  width: 390px;
+  width: 240px;
   height: 261px;
   overflow: hidden; /* hide overflow if image is larger */
   margin: 35px;
@@ -176,4 +176,9 @@ background-color: #fff;
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 25px;
+}
+
+.hit-text{
+  text-align: center;
+  color: white;
 }

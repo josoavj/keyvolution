@@ -3,66 +3,118 @@ import { createRoot } from 'react-dom/client';
 import { Play, Pause, Square } from 'lucide-react';
 import './index.css';
 
+// Convertir un numéro MIDI en nom de note (ex: 60 → C4)
+function midiToNoteName(midi) {
+  const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+  const octave = Math.floor(midi / 12) - 1;
+  const note = notes[midi % 12];
+  return `${note}${octave}`;
+}
+
+// Convertir un nom de note (ex: 'C4') en valeur MIDI
+function noteNameToMidi(note) {
+  const regex = /^([A-G]#?)(-?\d)$/;
+  const match = note.match(regex);
+  if (!match) return 60;
+
+  const n = match[1];
+  const o = parseInt(match[2]);
+  const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+  return notes.indexOf(n) + (o + 1) * 12;
+}
+
+// Génère les touches du piano dynamiquement
+function generatePianoKeys(minMidi, maxMidi) {
+  const keys = [];
+  const blackNotes = ['C#', 'D#', 'F#', 'G#', 'A#'];
+  let x = 0;
+
+  for (let midi = minMidi; midi <= maxMidi; midi++) {
+    const name = midiToNoteName(midi);
+    const base = name.slice(0, -1);
+    const isBlack = blackNotes.includes(base);
+    keys.push({ note: name, type: isBlack ? 'black' : 'white', x });
+    x += isBlack ? 15 : 40;
+  }
+
+  return keys;
+}
+
 const PianoSheetPlayer = () => {
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [currentTime, setCurrentTime] = useState(0);
-    const [duration] = useState(8); // 8 seconds pour la démo
-    const intervalRef = useRef(null);
-    const sheetRef = useRef(null);
+  const [noteSequence, setNoteSequence] = useState([]);
+  const [pianoKeys, setPianoKeys] = useState([]);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(8); // Valeur par défaut
+  const intervalRef = useRef(null);
+  const sheetRef = useRef(null);
 
-    const savedSong = localStorage.getItem('selectedSong');
-    const songData = savedSong ? JSON.parse(savedSong) : null;
+  const savedSong = localStorage.getItem('selectedSong');
+  const songData = savedSong ? JSON.parse(savedSong) : null;
 
-    const songTitle = songData?.title || "Twinkle, Twinkle, Little Star";
-    const composer = songData?.composer || "Traditional";
+  const songTitle = songData?.title || "Untitled Song";
+  const composer = songData?.composer || "Unknown Composer";
 
+  // Charger et formater le fichier MIDI JSON
+  useEffect(() => {
+    async function loadAndFormatNotes() {
+      if (!songData?.url){
+        console.log("song Partition not found")
+        return;
+      } 
+     console.log(songData.url)
+      try {
+        const response = await fetch(songData.url);
 
-    // Séquence de notes pour l'animation (notes MIDI simplifiées)
-    const noteSequence = [
-        { time: 0, note: 'C4', duration: 0.5 },
-        { time: 0.5, note: 'C4', duration: 0.5 },
-        { time: 1, note: 'G4', duration: 0.5 },
-        { time: 1.5, note: 'G4', duration: 0.5 },
-        { time: 2, note: 'A4', duration: 0.5 },
-        { time: 2.5, note: 'A4', duration: 0.5 },
-        { time: 3, note: 'G4', duration: 1 },
-        { time: 4, note: 'F4', duration: 0.5 },
-        { time: 4.5, note: 'F4', duration: 0.5 },
-        { time: 5, note: 'E4', duration: 0.5 },
-        { time: 5.5, note: 'E4', duration: 0.5 },
-        { time: 6, note: 'D4', duration: 0.5 },
-        { time: 6.5, note: 'D4', duration: 0.5 },
-        { time: 7, note: 'C4', duration: 1 },
-    ];
+        if (!response.ok) {
+            throw new Error(`Erreur HTTP ${response.status} : fichier introuvable ou non accessible`);
+        }
 
-    // Touches du piano (2 octaves)
-    const pianoKeys = [
-        { note: 'C3', type: 'white', x: 0 },
-        { note: 'C#3', type: 'black', x: 25 },
-        { note: 'D3', type: 'white', x: 40 },
-        { note: 'D#3', type: 'black', x: 65 },
-        { note: 'E3', type: 'white', x: 80 },
-        { note: 'F3', type: 'white', x: 120 },
-        { note: 'F#3', type: 'black', x: 145 },
-        { note: 'G3', type: 'white', x: 160 },
-        { note: 'G#3', type: 'black', x: 185 },
-        { note: 'A3', type: 'white', x: 200 },
-        { note: 'A#3', type: 'black', x: 225 },
-        { note: 'B3', type: 'white', x: 240 },
-        { note: 'C4', type: 'white', x: 280 },
-        { note: 'C#4', type: 'black', x: 305 },
-        { note: 'D4', type: 'white', x: 320 },
-        { note: 'D#4', type: 'black', x: 345 },
-        { note: 'E4', type: 'white', x: 360 },
-        { note: 'F4', type: 'white', x: 400 },
-        { note: 'F#4', type: 'black', x: 425 },
-        { note: 'G4', type: 'white', x: 440 },
-        { note: 'G#4', type: 'black', x: 465 },
-        { note: 'A4', type: 'white', x: 480 },
-        { note: 'A#4', type: 'black', x: 505 },
-        { note: 'B4', type: 'white', x: 520 },
-        { note: 'C5', type: 'white', x: 560 },
-    ];
+        const midiJson = await response.json();
+
+        const noteArray = midiJson.notes;
+
+        if (!Array.isArray(noteArray)) {
+            throw new Error("Le champ 'notes' n'est pas un tableau");
+        }
+
+        const sorted = noteArray.sort((a, b) => a.startTime - b.startTime);
+        const minStart = sorted[0]?.startTime || 0;
+
+        const formatted = sorted.map((note, i) => {
+            const currentTime = parseFloat((note.startTime - minStart).toFixed(2));
+            const nextStart = sorted[i + 1]?.startTime ?? (note.startTime + 0.5);
+            const duration = parseFloat((nextStart - note.startTime).toFixed(2)) || 0.5;
+
+            return {
+            time: currentTime,
+            note: midiToNoteName(note.midi),
+            duration: duration
+            };
+        });
+
+        setNoteSequence(formatted);
+
+        const firstNote = formatted[0];
+        const lastNote = formatted[formatted.length - 1];
+        const totalDuration = (lastNote.time + lastNote.duration) - firstNote.time;
+
+        setDuration(parseFloat(totalDuration.toFixed(2)));
+
+        const uniqueNotes = Array.from(new Set(formatted.map(n => n.note)));
+        const midiValues = uniqueNotes.map(noteNameToMidi);
+        const min = Math.min(...midiValues);
+        const max = Math.max(...midiValues);
+        const generatedKeys = generatePianoKeys(min - 2, max + 2);
+        setPianoKeys(generatedKeys);
+
+        } catch (error) {
+        console.error("Erreur lors du chargement du JSON MIDI :", error.message);
+        }
+    }
+
+    loadAndFormatNotes();
+  }, [songData]);
 
     // Obtenir la note actuellement jouée
     const getCurrentNote = () => {
@@ -111,7 +163,8 @@ const PianoSheetPlayer = () => {
     }, []);
 
     // Animation de la partition
-    const sheetScrollOffset = (currentTime / duration) * 100;
+    const sheetScrollOffset = (currentTime / duration) * 4000;
+
 
     return (
         <div className="w-full max-w-4xl mx-auto bg-gradient-to-r from-teal-500/20 to-blue-800/20 border-1 shadow-2xl overflow-hidden rounded-lg">
@@ -127,9 +180,9 @@ const PianoSheetPlayer = () => {
             {/* Partition factice avec animation */}
             <div 
                 ref={sheetRef}
-                className="absolute inset-0 transition-transform duration-100 ease-linear"
+                className="absolute inset-0 transition-transform duration-200 ease-linear"
                 style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='120' viewBox='0 0 800 120'%3E%3Cg fill='none' stroke='%23333' stroke-width='1'%3E%3Cline x1='0' y1='20' x2='800' y2='20'/%3E%3Cline x1='0' y1='30' x2='800' y2='30'/%3E%3Cline x1='0' y1='40' x2='800' y2='40'/%3E%3Cline x1='0' y1='50' x2='800' y2='50'/%3E%3Cline x1='0' y1='60' x2='800' y2='60'/%3E%3Cline x1='0' y1='80' x2='800' y2='80'/%3E%3Cline x1='0' y1='90' x2='800' y2='90'/%3E%3Cline x1='0' y1='100' x2='800' y2='100'/%3E%3Cline x1='0' y1='110' x2='800' y2='110'/%3E%3Cline x1='0' y1='120' x2='800' y2='120'/%3E%3C/g%3E%3C/svg%3E")`,
+                backgroundImage: `url("../Design/Grand_staff.svg")`,
                 backgroundRepeat: 'repeat-x',
                 transform: `translateX(-${sheetScrollOffset}px)`
                 }}
@@ -138,13 +191,13 @@ const PianoSheetPlayer = () => {
                 {noteSequence.map((note, index) => (
                 <div
                     key={index}
-                    className={`absolute w-4 h-4 rounded-full transition-all duration-200 ${
+                    className={`absolute w-3 h-3 rounded-full transition-all duration-300 ${
                     currentTime >= note.time && currentTime < note.time + note.duration
                         ? 'bg-red-500 scale-125 shadow-lg'
                         : 'bg-black'
                     }`}
                     style={{
-                    left: `${(note.time / duration) * 100}%`,
+                    left: `${(note.time / duration) * 250}%`,
                     top: `${getNotePosition(note.note)}px`,
                     }}
                 />
@@ -211,7 +264,7 @@ const PianoSheetPlayer = () => {
                     stroke="#333"
                     strokeWidth="1"
                     rx="2"
-                    className="transition-all duration-200 cursor-pointer hover:fill-gray-100"
+                    className="transition-all duration-300 cursor-pointer hover:fill-gray-100"
                 />
                 ))}
                 
@@ -227,7 +280,7 @@ const PianoSheetPlayer = () => {
                     stroke="#000"
                     strokeWidth="1"
                     rx="2"
-                    className="transition-all duration-200 cursor-pointer hover:fill-gray-700"
+                    className="transition-all duration-300 cursor-pointer hover:fill-gray-700"
                 />
                 ))}
             </svg>
