@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliothèque</title>
+    <link rel="stylesheet" href="../index.css"/>
+    <link rel="stylesheet" href="library.css"/>
+</head>
+<body>
+    <div id="header">
+        <div><h1 id="pageTitle">Bibliothèque</h1></div>
+        <div id="menu">
+            <div id="searchBar" class="inputWrapper">
+                <input type="text" placeholder="Recherche" id="searchInput" />
+            </div>
+            <div id="profil">
+                <div>
+                    <img src="../../Design/icons/burger-menu.png" alt="">
+                </div>
+                <div>
+                    <img src="../../Design/Profile-img.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <section class="songs-section">
+      <h3>Top played song</h3>
+      <div class="song-grid" id="song-grid">
+      </div>
+      <script type="module">
+        import {fetchSongs} from '../api/songs.js'; 
+
+        document.addEventListener('DOMContentLoaded', () => {
+        fetchSongs();
+        });
+      </script>
+
+    </section>
+
+    <section class="list-song-container">
+        <h3>Vos musiques</h3>
+        <div class="your-song-grid" id="your-song-grid"></div>
+        <script type="module">
+        import {fetchYourSongs} from '../api/songs.js'; 
+        document.addEventListener('DOMContentLoaded', () => {
+        fetchYourSongs();
+        });
+      </script>
+    </section>
+
+    <div class="hit-container">
+        <div><h1>Hit du moment</h1></div>
+        <div class="hit-img">
+            
+        </div>
+
+    </div>
+
+    <!--
+        BARRE DE NAVIGATION
+    -->
+    <footer class="bottom-menu">
+      <button onclick="goToPage1('workspace')"><img src="../../Design/icons/piano.png" alt="piano"/></button>
+      <button onclick="goToPage2('home')"><img src="../../Design/icons/home.png" alt="home"/></button>
+      <button onclick="goToPage3('library')"><img src="../../Design/icons/library.png" alt="books"/></button>
+    </footer>
+    <script>
+      function goToPage1(page) {
+          window.electron.navigateTo(`./Workspace/${page}`);
+      }
+      function goToPage2(page) {
+          window.electron.navigateTo(`./Home/${page}`);
+      }
+      function goToPage3(page) {
+          window.electron.navigateTo(`./Library/${page}`);
+      }
+    </script>
+    <!--
+        BARRE DE NAVIGATION
+    -->
+</body>
+</html>
