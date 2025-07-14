@@ -9,10 +9,9 @@
 <body>
     <div id="header">
         <div><h1 id="pageTitle">Bibliothèque</h1></div>
-        <div id="">
-            <div id="searchBar">
-                <input type="text" placeholder="Recherche" />
-                <button class="search-btn">🔍</button>
+        <div id="menu">
+            <div id="searchBar" class="inputWrapper">
+                <input type="text" placeholder="Recherche" id="searchInput" />
             </div>
             <div id="profil">
                 <div>
@@ -24,7 +23,40 @@
             </div>
         </div>
     </div>
+
     
+    <section class="songs-section">
+      <h3>Top played song</h3>
+      <div class="song-grid" id="song-grid">
+      </div>
+      <script type="module">
+        import {fetchSongs} from '../api/songs.js'; 
+
+        document.addEventListener('DOMContentLoaded', () => {
+        fetchSongs();
+        });
+      </script>
+
+    </section>
+
+    <section class="list-song-container">
+        <h3>Vos musiques</h3>
+        <div class="your-song-grid" id="your-song-grid"></div>
+        <script type="module">
+        import {fetchYourSongs} from '../api/songs.js'; 
+        document.addEventListener('DOMContentLoaded', () => {
+        fetchYourSongs();
+        });
+      </script>
+    </section>
+
+    <div class="hit-container">
+        <div><h1>Hit du moment</h1></div>
+        <div class="hit-img">
+            
+        </div>
+
+    </div>
 
     <!--
         BARRE DE NAVIGATION
