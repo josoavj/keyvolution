@@ -398,7 +398,7 @@ body {
 .songs-section .song-grid {
   display: flex;
   gap: 1rem;
-  margin-top: 4rem;
+  margin-top: 2rem;
   font-family: "Noto Sans", sans-serif;
   font-weight: lighter;
   text-align: center;
@@ -432,7 +432,7 @@ body {
 }
 
 .songs-section h3 {
-  position: fixed !important;
+  /*position: fixed !important;*/
 }
 
 
