@@ -92,6 +92,3 @@ typings/
 out/
 /.idea
 backend/package-lock.json
-package-lock.json
-backend/package-lock.json
-backend/package.json
