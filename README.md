@@ -16,19 +16,17 @@
 ```
 keyvolution/                # Dossier principal
 ├── Design                  # Design et prototype de l'application
-├── backend/                # Depôt du backend de l'application
+├── backend/                # Depôt du backend de l'application (Strapi)
 ├── src/                    # Dépôt des codes
-    ├── src/renderer/       # Renderer Process: Front-end
     ├── index.html          # Page principale de l'UI
     ├── style.css           # Feuille de style pour l'interface
-    ├── app.js              # Gestion des évènements UI
-    ├── piano.js            # Gestion des interactions et affichage avec le clavier virtuel 
-    └── exercices.js        # Gestion des exercices d'apprentissage
-├── src/main/               # Main Process : Back-end 
-    ├── main.js             # Point d'entrée principal de l'application
-    ├── database.js         # Gestion de la connexion à mongoDB
-    ├── ipcHandlers.js      # Gestion des communications entre le Main Process et le Renderer Process
-    └── config.js           # Configuration génerale de l'application 
+├── src/api/
+    ├── songs.js                 # Gestion des API liés aux musiques(Create and Read)
+    ├── users.js                 # Gestion des API liés aux utilisateurs(Create and Read)
+    └── musicProcessor.js        # Gestion des transcriptions en partitions
+├── main.js             # Point d'entrée principal de l'application
+├── ipcHandlers.js      # Gestion des communications entre le Main Process et le Renderer Process
+└── config.js           # Configuration génerale de l'application 
 └── README.md               # Documentation
 ```
 ## How ?
