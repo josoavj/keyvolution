@@ -34,22 +34,20 @@
       <button id="btnSignUp" onclick="showSignUp()">Sign Up</button>
     </div>
 
-    <!-- FORMULAIRE SIGN IN -->
-    <form id="formSignIn" class="modal1-form">
+    <form id="formSignIn" class="modal1-form" onsubmit="handleSignIn(event)">
       <input type="text" placeholder="Nom d'utilisateur ou Email" required />
       <input type="password" placeholder="Mot de passe" required />
-      <button type="submit" class="primary-btn" onclick="goToHome()">Se connecter</button>
+      <button type="submit" class="primary-btn">Se connecter</button>
     </form>
 
-    <!-- FORMULAIRE SIGN UP -->
-    <form id="formSignUp" class="modal1-form hidden">
+    <form id="formSignUp" class="modal1-form hidden" onsubmit="handleSignUp(event)">
       <input type="text" placeholder="Nom d'utilisateur" required />
       <input type="email" placeholder="Email" required />
       <input type="password" placeholder="Mot de passe" required />
       <input type="password" placeholder="Confirmation mot de passe" required />
-        <input type="file" id="signupImage" accept="image/png, image/jpeg" />
-        <img id="previewSignupImage" src="" alt="Aperçu image" style="max-width: 100px; margin-top: 10px; border-radius: 10px; display: none;" />
-        <button type="submit" class="primary-btn" onclick="goToHome()">S'inscrire</button>
+      <input type="file" id="signupImage" accept="image/png, image/jpeg" />
+      <img id="previewSignupImage" src="" alt="Aperçu image" style="max-width: 100px; margin-top: 10px; border-radius: 10px; display: none;" />
+      <button type="submit" class="primary-btn">S'inscrire</button>
     </form>
   </div>
 </div>
@@ -85,6 +83,47 @@
     btnSignIn.classList.remove("active");
 
   }
+
+  function handleSignIn(event) {
+  event.preventDefault(); // Empêche la soumission classique du formulaire
+
+  // Récupérer les valeurs des champs (facultatif si tu veux les exploiter)
+  const inputs = event.target.querySelectorAll('input');
+  const usernameOrEmail = inputs[0].value.trim();
+  const password = inputs[1].value.trim();
+
+  // Tu peux ajouter une vérification personnalisée ici si besoin
+
+  // Redirection
+  window.location.href = "./Home/home.html";
+}
+
+function handleSignUp(event) {
+  event.preventDefault(); // Empêche la soumission classique du formulaire
+
+  const inputs = event.target.querySelectorAll('input');
+  const username = inputs[0].value.trim();
+  const email = inputs[1].value.trim();
+  const password = inputs[2].value.trim();
+  const confirmPassword = inputs[3].value.trim();
+
+  if (password !== confirmPassword) {
+    alert("Les mots de passe ne correspondent pas.");
+    return;
+  }
+
+  // Tu peux aussi vérifier si un fichier image a été sélectionné :
+  const imageInput = document.getElementById("signupImage");
+  const file = imageInput.files[0];
+  if (!file) {
+    alert("Veuillez ajouter une image de profil.");
+    return;
+  }
+
+  // Redirection
+  window.location.href = "./Home/home.html";
+}
+
 
   function goToHome() {
     window.location.href = "./Home/home.html";
